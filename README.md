@@ -37,9 +37,11 @@ These settings should be specified in a `.testsettings` file before launching te
 
 | Setting | Description | Values |
 | --- | --- | --- |
-| VSApplication | The registry key name | "VisualStudio", "WDExpress", "VWDExpress" |
+| VSApplication | The registry key name | "VisualStudio", "WDExpress", "VWDExpress", "Mock" |
 | VSExecutable  | The executable name | "devenv", "wdexpress", "vwdexpress" |
 | VSVersion     | The version number | "10.0", "11.0", "12.0" or "14.0" |
 | VSHive | The hive name | "Exp" or blank |
 | VSLaunchTimeoutInSeconds | The number of seconds to wait for launch | Any number, or blank |
 | VSDebugMixedMode | Use native debugging for tests | "True", "False" or blank |
+
+If `VSApplication` is set to `Mock`, no instance of Visual Studio will be launched and tests will be run in the current process. In this case, the `VSTestContext.IsMock` property will be `true` and `VSTestContext.ServiceProvider` should be set by your test run initializer.
