@@ -1,14 +1,10 @@
-﻿              **********************************************
-              **                                          **
-              **     How This Whole Crazy Thing Works     **
-              **                                          **
-              **           An extended apology            **
-              **              by Steve Dower              **
-              **                                          **
-              **********************************************
+# Implementation Details
 
-Intent
-======
+"How This Whole Crazy Thing Works: An extended apology"  
+by Steve Dower
+
+
+## Intent
 
 We are building an extension for Visual Studio that integrates into many (most)
 of its features. We would like to automatically test this extension.
@@ -25,20 +21,16 @@ developers to validate the product in its running context.
 Making all of this work is messy, and this document is meant to help whoever has
 to touch it next.
 
-Sorry.
+
+## Requirements
+
+* Write and run tests using the normal VS unit testing framework
+* Execute tests in a selectable VS instance (SKU, version, hive, etc.)
+* Debug tests by selecting "Debug selected tests" within VS
+* Resilient to VS crashes during test runs
 
 
-Requirements
-============
-
- * Write and run tests using the normal VS unit testing framework
- * Execute tests in a selectable VS instance (SKU, version, hive, etc.)
- * Debug tests by selecting "Debug selected tests" within VS
- * Resilient to VS crashes during test runs
-
-
-Architecture
-============
+## Architecture
 
 There are three executable processes involved when running these tests. Within
 VSTestHost, they are referred to as the TESTER, the TESTEE, and the EXECUTION
@@ -47,13 +39,15 @@ ENGINE. Another concept is the TEST ADAPTER, which is a .NET class.
 The TESTER is the instance of Visual Studio that the developer is using to
 launch tests. If the developer is debugging tests, the TESTER is the VS instance
 that will attach to the other instance.
- - When running tests from the command line, there is no TESTER.
+
+> When running tests from the command line, there is no TESTER.
 
 The TESTEE is the instance of Visual Studio where the test will actually run.
 The testsettings file selected by the TESTER will determine which version, SKU,
 and hive of Visual Studio will be started as the TESTEE.
- - The TESTEE is launched and terminated by the TEST ADAPTER from the EXECUTION
-   ENGINE
+
+> The TESTEE is launched and terminated by the TEST ADAPTER from the EXECUTION
+  ENGINE
 
 The EXECUTION ENGINE is a separate process that allows unit tests to run with
 different process-wide settings to what the TESTER was launched with. When tests
@@ -72,24 +66,26 @@ in the TESTEE. The TEST ADAPTER loaded in the EXECUTION ENGINE is responsible
 for marshalling calls (including error handling) to the TESTEE's TEST ADAPTER,
 which is responsible for executing the test.
 
- - Neither TEST ADAPTER is the *real* unit test adapter, so executing a test
-   looks more like instantiating another ITestAdapter and invoking its Run().
+> Neither TEST ADAPTER is the "real" unit test adapter, so executing a test
+  looks more like instantiating another ITestAdapter and invoking its Run().
 
-Test Settings
-=============
+
+## Test Settings
 
 VSTestHost depends on the use of a testsettings file to specify the version, SKU
 and hive of VS to use as the TESTEE. The available settings are as follows:
 
-    VSApplication    - The registry key name, like "VisualStudio" or "WDExpress"
-    VSExecutable     - The executable name, like "devenv" or "wdexpress"
-    VSVersion        - The version number, like "12.0" or "14.0"
-    VSHive [opt]     - The hive name, like "Exp"
-    VSLaunchTimeoutInSeconds [opt] - The number of seconds to wait for launch
-    VSDebugMixedMode - True to use mixed-mode debugging for tests
+| Setting | Description |
+| --- | --- |
+| VSApplication | The registry key name, like "VisualStudio" or "WDExpress" |
+| VSExecutable  | The executable name, like "devenv" or "wdexpress" |
+| VSVersion     | The version number, like "12.0" or "14.0" |
+| VSHive [optional]  | The hive name, like "Exp" |
+| VSLaunchTimeoutInSeconds [opt] | The number of seconds to wait for launch |
+| VSDebugMixedMode | True to use mixed-mode debugging for tests |
 
-Run Test Sequence
-=================
+
+## Run Test Sequence
 
 Because a TESTEE instance has no way of knowing whether it is actually a TESTEE
 or just an instance of VS with VSTestHost installed, all instances will open an
@@ -99,24 +95,24 @@ instances. The TESTEE's TEST ADAPTER is made available over this IPC channel.
 
 The typical execution sequence looks like this:
 
-  1. Developer clicks "Run selected test" in the TESTER
-  2. TESTER launches EXECUTION ENGINE
-  3. EXECUTION ENGINE loads the TEST ADAPTER
-  4. EXECUTION ENGINE calls Initialize() on the TEST ADAPTER
-  5. EXECUTION ENGINE's TEST ADAPTER reads the configuration and launches the TESTEE
-  6. TESTEE opens an IPC channel that is unique to the process and publishes its own TEST ADAPTER
-  7. EXECUTION ENGINE's TEST ADAPTER connects to the TESTEE's TEST ADAPTER and returns from Initialize().
-  8. EXECUTION ENGINE calls its TEST ADAPTER's Run() method for each test.
-  9. EXECUTION ENGINE's TEST ADAPTER calls TESTEE's TEST ADAPTER's Run() method
- 10. TESTEE's TEST ADAPTER instantiates/caches the real unit test adapter
- 11. TESTEE's TEST ADAPTER invokes the unit test adapter's Run() method
- 12. Repeat 8-11 for each test.
- 13. EXECUTION ENGINE calls its TEST ADAPTER's PreTestRunFinished() and Cleanup() methods
- 14. EXECUTION ENGINE's TEST ADAPTER exits the TESTEE.
- 15. Test run is complete.
+1. Developer clicks "Run selected test" in the TESTER
+2. TESTER launches EXECUTION ENGINE
+3. EXECUTION ENGINE loads the TEST ADAPTER
+4. EXECUTION ENGINE calls Initialize() on the TEST ADAPTER
+5. EXECUTION ENGINE's TEST ADAPTER reads the configuration and launches the TESTEE
+6. TESTEE opens an IPC channel that is unique to the process and publishes its own TEST ADAPTER
+7. EXECUTION ENGINE's TEST ADAPTER connects to the TESTEE's TEST ADAPTER and returns from Initialize().
+8. EXECUTION ENGINE calls its TEST ADAPTER's Run() method for each test.
+9. EXECUTION ENGINE's TEST ADAPTER calls TESTEE's TEST ADAPTER's Run() method
+10. TESTEE's TEST ADAPTER instantiates/caches the real unit test adapter
+11. TESTEE's TEST ADAPTER invokes the unit test adapter's Run() method
+12. Repeat 8-11 for each test.
+13. EXECUTION ENGINE calls its TEST ADAPTER's PreTestRunFinished() and Cleanup() methods
+14. EXECUTION ENGINE's TEST ADAPTER exits the TESTEE.
+15. Test run is complete.
 
-Debug Test Sequence
-===================
+
+## Debug Test Sequence
 
 Debugging is more complicated, because the TESTER needs to perform debug/attach
 but only the EXECUTION ENGINE knows the TESTEE's process ID. However, the
@@ -155,29 +151,29 @@ another VS instance).
 The typical debug execution sequence looks like this:
 (Steps prefixed with an asterisk are different from the Run Test sequence.)
 
-* 1. Developer clicks "Debug selected test" in the TESTER
-* 2. TESTER launches EXECUTION ENGINE under its managed debugger.
-* 3. TESTER opens the debug IPC server. If another process has opened the server already,
-     then TESTER tells it to close.
-  4. EXECUTION ENGINE loads the TEST ADAPTER
-  5. EXECUTION ENGINE calls Initialize() on the TEST ADAPTER
-  6. EXECUTION ENGINE's TEST ADAPTER reads the configuration and launches the TESTEE
-  7. TESTEE opens an IPC channel that is unique to the process and publishes its own TEST ADAPTER
-* 8. EXECUTION ENGINE's TEST ADAPTER connects to the TESTEE's TEST ADAPTER
-* 9. EXECUTION ENGINE's TEST ADAPTER connects to the debug IPC server and tells it to attach to TESTEE.
-*10. EXECUTION ENGINE's TEST ADAPTER returns from Initialize().
-*11. TESTER attaches its debugger to TESTEE.
- 12. EXECUTION ENGINE calls its TEST ADAPTER's Run() method for each test.
- 13. EXECUTION ENGINE's TEST ADAPTER calls TESTEE's TEST ADAPTER's Run() method
- 14. TESTEE's TEST ADAPTER instantiates/caches the real unit test adapter
- 15. TESTEE's TEST ADAPTER invokes the unit test adapter's Run() method
- 16. Repeat 12-15 for each test.
- 17. EXECUTION ENGINE calls its TEST ADAPTER's PreTestRunFinished() and Cleanup() methods
- 18. EXECUTION ENGINE's TEST ADAPTER exits the TESTEE.
- 19. Test run is complete.
+1. *Developer clicks "Debug selected test" in the TESTER
+2. *TESTER launches EXECUTION ENGINE under its managed debugger.
+3. *TESTER opens the debug IPC server. If another process has opened the server already,
+   then TESTER tells it to close.
+4. EXECUTION ENGINE loads the TEST ADAPTER
+5. EXECUTION ENGINE calls Initialize() on the TEST ADAPTER
+6. EXECUTION ENGINE's TEST ADAPTER reads the configuration and launches the TESTEE
+7. TESTEE opens an IPC channel that is unique to the process and publishes its own TEST ADAPTER
+8. *EXECUTION ENGINE's TEST ADAPTER connects to the TESTEE's TEST ADAPTER
+9. *EXECUTION ENGINE's TEST ADAPTER connects to the debug IPC server and tells it to attach to TESTEE.
+10. *EXECUTION ENGINE's TEST ADAPTER returns from Initialize().
+11. *TESTER attaches its debugger to TESTEE.
+12. EXECUTION ENGINE calls its TEST ADAPTER's Run() method for each test.
+13. EXECUTION ENGINE's TEST ADAPTER calls TESTEE's TEST ADAPTER's Run() method
+14. TESTEE's TEST ADAPTER instantiates/caches the real unit test adapter
+15. TESTEE's TEST ADAPTER invokes the unit test adapter's Run() method
+16. Repeat 12-15 for each test.
+17. EXECUTION ENGINE calls its TEST ADAPTER's PreTestRunFinished() and Cleanup() methods
+18. EXECUTION ENGINE's TEST ADAPTER exits the TESTEE.
+19. Test run is complete.
 
-VSTestHost Classes
-==================
+
+## VSTestHost Classes
 
 This is an overview of the classes within VSTestHost and how they are used. Some
 classes are used in multiple places with slightly different purposes, and
@@ -186,10 +182,9 @@ because not every VS SKU or version can support being a TESTER, some parts are
 Microsoft.VisualStudio.Shell.##.0, each VS version requires its own build of
 VSTestHost.
 
-VSTestHostPackage
------------------
+### `VSTestHostPackage`
 
-This package is autoloaded in every instance of VS.
+This package is auto-loaded in every instance of VS.
 
 For TESTEEs (bearing in mind that we always initially assume this), package
 initialization creates the IPC channel and publishes its test adapter. This
@@ -201,8 +196,7 @@ Channel creation is handled by the static members of TesterDebugAttacher. When
 the timeout expires, another TESTER manually aborts the wait, or an EXECUTION
 ENGINE signals to attach, the channel is closed.
 
-TesterDebugAttacher
--------------------
+### `TesterDebugAttacher`
 
 This class is published over the debug IPC channel to allow the EXECUTION ENGINE
 to instruct the debugger in the TESTER to attach to the TESTEE. Other TESTERs
@@ -211,40 +205,38 @@ may also use it to abort listeners so they can take over the channel.
 The class has static methods for use by the TESTER to simplify listening for
 commands.
 
-TesterTestAdapter
------------------
+### `TesterTestAdapter`
 
 This class is loaded in the EXECUTION ENGINE to run tests that have a
 [HostType("VSTestHost")] attribute. It is largely responsible for connecting to
 an instance of TesteeTestAdapter and marshalling calls to the TESTEE.
 
-TesteeTestAdapter
------------------
+### `TesteeTestAdapter`
 
 This class is published from the TESTEE on the unique IPC channel created by
 VSTestHostPackage. It implements the logic for running arbitrary tests within VS
 by loading the intended test adapter.
 
-VisualStudio
-------------
+### `VisualStudio`
 
 This class encapsulates the logic for starting VS and getting its DTE object
 from the EXECUTION ENGINE. Currently, DTE is only used by the EXECUTION ENGINE
 to safely exit VS at the end of a test run, but in the future could be used for
 tests that need to drive VS from outside the TESTEE process.
 
-VSTestContext
--------------
+### `VSTestContext`
 
 This class is used by tests running within the TESTEE to easily access the VS
 instance's DTE and global ServiceProvider objects. Unit test projects should
 include the following reference for VSTestHost:
 
-    <Reference Include="Microsoft.VisualStudioTools.VSTestHost.$(VSTarget),
-                        Version=$(VSTarget).0.0, Culture=neutral,
-                        PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+```xml
+<Reference Include="Microsoft.VisualStudioTools.VSTestHost.$(VSTarget),
+                    Version=$(VSTarget).0.0, Culture=neutral,
+                    PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+```
 
-Test projects that do not refer to VSTestContext do not require this reference.
+Test projects that do not refer to `VSTestContext` do not require this reference.
 
-This is the only public class in the Microsoft.VisualStudioTools.VSTestHost
+This is the only public class in the **Microsoft.VisualStudioTools.VSTestHost**
 assembly. All other public classes are infrastructure.

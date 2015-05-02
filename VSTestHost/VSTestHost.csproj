@@ -138,7 +138,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="HowThisWholeCrazyThingWorks.txt" />
+    <None Include="..\DeveloperGuide.md">
+      <Link>DeveloperGuide.md</Link>
+    </None>
     <Content Include="Resources\Package.ico" />
     <None Include="source.extension.vsixmanifest" />
   </ItemGroup>
