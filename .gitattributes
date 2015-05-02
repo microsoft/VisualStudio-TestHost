@@ -1,0 +1,24 @@
+# Set the default behavior (used when a rule below doesn't match)
+* text=auto
+
+# Source code files
+*.cs text
+*.resx text
+*.ps1 text
+*.wxs text
+*.reg text
+*.vsixmanifest text
+
+# Text files
+*.md text
+*.txt text
+LICENSE text
+
+# Projects and solutions
+*.sln text
+*.csproj text
+*.wixproj text
+
+# Known binary files
+*.ico binary
+*.snk binary
