@@ -31,10 +31,6 @@
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -138,7 +134,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="HowThisWholeCrazyThingWorks.txt" />
+    <None Include="..\DeveloperGuide.md">
+      <Link>DeveloperGuide.md</Link>
+    </None>
     <Content Include="Resources\Package.ico" />
     <None Include="source.extension.vsixmanifest" />
   </ItemGroup>

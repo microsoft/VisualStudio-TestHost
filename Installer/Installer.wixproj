@@ -13,10 +13,6 @@
     <WixTargetsPath>$(WixInstallPath)\Wix.targets</WixTargetsPath>
     <VSTestHostTarget Condition="'$(VSTestHostTarget)' == ''">Build</VSTestHostTarget>
     <VSTargetVersions Condition="'$(VSTargetVersions)' == ''">10;11;12;14</VSTargetVersions>
-    <SccProjectName>SAK</SccProjectName>
-    <SccProvider>SAK</SccProvider>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccLocalPath>SAK</SccLocalPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
