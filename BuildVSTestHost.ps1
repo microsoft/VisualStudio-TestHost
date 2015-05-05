@@ -25,7 +25,7 @@ if ($sign -or $mocksign) {
 
 if (-not (Test-Path $projectDir\Build\Wix\wix.targets)) {
     Import-Module $projectDir\Build\GetWix.ps1 -Force
-    GetWix (mkdir -Force "$projectDir\Build\Wix") -EA Stop
+    Get-Wix (mkdir -Force "$projectDir\Build\Wix") -EA Stop
 }
 
 msbuild $projectDir\Installer\Installer.wixproj `
