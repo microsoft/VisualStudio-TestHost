@@ -8,10 +8,7 @@ function GetWix {
     $file += ".zip"
     Write-Output "  - temporary storage: $file"
 
-    [IO.File]::WriteAllBytes(
-        $file,
-        (Invoke-WebRequest "https://wix.codeplex.com/downloads/get/1421697" -UseBasicParsing).Content
-    )
+    Invoke-WebRequest "https://wix.codeplex.com/downloads/get/1421697" -UseBasicParsing -OutFile $file
 
     $shell = New-Object -COM Shell.Application
     $dest = $shell.NameSpace("$target")
