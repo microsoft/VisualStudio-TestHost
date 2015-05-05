@@ -1,5 +1,7 @@
 # VisualStudio-TestHost
 
+[![Join the chat at https://gitter.im/Microsoft/VisualStudio-TestHost](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Microsoft/VisualStudio-TestHost?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Infrastructure for executing interactive UI tests in Visual Studio.
 
 ## Quick Start
