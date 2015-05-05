@@ -3,8 +3,13 @@ packages/
 bin/
 obj/
 TestResults/
+*.log
+*.msi
 
 # Per-user files created by IDEs
 *.suo
 *.user
 *.vs/
+
+# Downloaded copy of wix
+Build/Wix/

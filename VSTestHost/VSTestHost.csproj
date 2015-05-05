@@ -20,7 +20,7 @@
     <OutputPath>bin\$(Configuration)_$(VisualStudioVersion)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)_$(VisualStudioVersion)</IntermediateOutputPath>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\..\Build\FinalPublicKey.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>FinalPublicKey.snk</AssemblyOriginatorKeyFile>
     <DelaySign>true</DelaySign>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <CreateVsixContainer>false</CreateVsixContainer>
@@ -129,9 +129,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\Build\FinalPublicKey.snk">
-      <Link>FinalPublicKey.snk</Link>
-    </None>
+    <None Include="FinalPublicKey.snk" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\DeveloperGuide.md">
