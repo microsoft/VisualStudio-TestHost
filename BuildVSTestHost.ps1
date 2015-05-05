@@ -13,12 +13,6 @@ if (-not (get-command msbuild -EA 0)) {
 
 $projectDir = Split-Path -parent $MyInvocation.MyCommand.Definition
 
-$buildroot = $projectDir
-while ((Test-Path $buildroot) -and -not (Test-Path "$buildroot\build.root")) {
-    $buildroot = (Split-Path -Parent $buildroot)
-}
-Write-Output "Build Root: $buildroot"
-
 if (-not $outdir) {
     $outdir = "$projectDir"
 }
@@ -27,6 +21,11 @@ Write-Output "Writing output MSIs to $outdir"
 $originalbuildtarget = $buildtarget
 if ($sign -or $mocksign) {
     $buildtarget = "BuildVSTestHost"
+}
+
+if (-not (Test-Path $projectDir\Build\Wix\wix.targets)) {
+    Import-Module $projectDir\Build\GetWix.ps1 -Force
+    Get-Wix (mkdir -Force "$projectDir\Build\Wix") -EA Stop
 }
 
 msbuild $projectDir\Installer\Installer.wixproj `
@@ -45,9 +44,9 @@ if (-not $?) {
 if ($sign -or $mocksign) {
     Write-Output "Submitting signing job"
     if ($sign) {
-        Import-Module -force $buildroot\Build\BuildReleaseHelpers.psm1
+        Import-Module -force $projectDir\Build\BuildReleaseHelpers.psm1
     } else {
-        Import-Module -force $buildroot\Build\BuildReleaseMockHelpers.psm1
+        Import-Module -force $projectDir\Build\BuildReleaseMockHelpers.psm1
     }
     
     $approvers = "smortaz", "dinov", "stevdo", "pminaev", "gilbertw", "huvalo", "sitani", "jinglou", "crwilcox"
