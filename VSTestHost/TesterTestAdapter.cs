@@ -41,6 +41,9 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
     /// </summary>
     class TesterTestAdapter : ITestAdapter {
         private Internal.VisualStudio _ide;
+        private string _currentApplication, _currentExecutable, _currentHive;
+        private Version _currentVersion;
+
         private Guid _runId;
         private IRunContext _runContext;
         private TesteeTestAdapter _remote;
@@ -55,6 +58,15 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
             string hive,
             CancellationToken cancel
         ) {
+            if (_ide != null &&
+                _remote != null &&
+                application == _currentApplication &&
+                executable == _currentExecutable &&
+                version == _currentVersion &&
+                hive == _currentHive) {
+                return;
+            }
+
             Close();
 
             Internal.VisualStudio ide = null;
@@ -70,6 +82,10 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
 
                 _remote = (TesteeTestAdapter)RemotingServices.Connect(typeof(TesteeTestAdapter), url);
 
+                _currentApplication = application;
+                _currentExecutable = executable;
+                _currentVersion = version;
+                _currentHive = hive;
                 _ide = ide;
                 ide = null;
             } finally {
@@ -133,31 +149,32 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
         /// <param name="runContext">
         /// The context for the current test run.
         /// </param>
-        private async Task InitializeWorker(IRunContext runContext) {
+        private async Task InitializeWorker(IRunContext runContext, ITestElement testElement) {
             string application, executable, versionString, hive;
             Version version;
             string launchTimeoutInSecondsString;
             int launchTimeoutInSeconds;
 
-            var vars = runContext.RunConfig.TestRun.RunConfiguration.TestSettingsProperties;
+
+            var vars = new TestProperties(testElement, _runContext.RunConfig.TestRun.RunConfiguration);
 
             // VSApplication is the registry key name like 'VisualStudio'
-            vars.TryGetValue("VSApplication", out application);
+            application = vars[VSTestProperties.VSApplication.Key];
             // VSExecutableName is the executable name like 'devenv'
-            if (vars.TryGetValue("VSExecutable", out executable) &&
+            if (vars.TryGetValue(VSTestProperties.VSExecutable.Key, out executable) &&
                 !string.IsNullOrEmpty(executable) &&
                 string.IsNullOrEmpty(Path.GetExtension(executable))) {
                 executable = Path.ChangeExtension(executable, ".exe");
             }
             // VSVersion is the version like '12.0'
-            if (!vars.TryGetValue("VSVersion", out versionString) ||
+            if (!vars.TryGetValue(VSTestProperties.VSVersion.Key, out versionString) ||
                 !Version.TryParse(versionString, out version)) {
                 version = null;
             }
             // VSHive is the optional hive like 'Exp'
-            vars.TryGetValue("VSHive", out hive);
+            hive = vars[VSTestProperties.VSHive.Key];
 
-            if (!vars.TryGetValue("VSLaunchTimeoutInSeconds", out launchTimeoutInSecondsString) ||
+            if (!vars.TryGetValue(VSTestProperties.VSLaunchTimeoutInSeconds.Key, out launchTimeoutInSecondsString) ||
                 !int.TryParse(launchTimeoutInSecondsString, out launchTimeoutInSeconds)) {
                 launchTimeoutInSeconds = 30;
             }
@@ -171,8 +188,9 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
                     hive ?? "(null)"
                 ));
             }
-            
-            if (application == "Mock") {
+
+            _mockVs = (application == VSTestProperties.VSApplication.Mock);
+            if (_mockVs) {
                 _runContext = runContext;
                 _remote = new TesteeTestAdapter();
                 _remote.Initialize(_runContext);
@@ -180,9 +198,9 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
                 // VSTestContext is in our process too.  So we can just set this value
                 // directly here.
                 VSTestContext.IsMock = true;
-                _mockVs = true;
                 return;
             }
+
 
             // TODO: Detect and perform first run of VS if necessary.
             // The first time a VS hive is run, the user sees a dialog allowing
@@ -199,48 +217,52 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
             } catch (OperationCanceledException ex) {
                 throw new TimeoutException(string.Format(Resources.VSLaunchTimeout, launchTimeoutInSeconds), ex);
             }
+        }
 
-            _runContext = runContext;
-            _remote.Initialize(_runContext);
+        private bool InitializeForTest(ITestElement testElement, IRunContext runContext) {
+            var runId = runContext.RunConfig.TestRun.Id;
+            TestRunTextResultMessage failure = null;
 
-            if (_runContext.RunConfig.TestRun.RunConfiguration.IsExecutedUnderDebugger) {
+            try {
+                InitializeWorker(runContext, testElement).GetAwaiter().GetResult();
+                _remote.Initialize(_runContext);
+
+                AttachDebuggerIfNeeded(runContext, _ide);
+            } catch (ArgumentException ex) {
+                failure = new TestRunTextResultMessage(runId, ex.Message);
+            } catch (TimeoutException ex) {
+                failure = new TestRunTextResultMessage(runId, ex.Message);
+            } catch (Exception ex) {
+                failure = new TestRunTextResultMessage(
+                    runId,
+                    string.Format("{0}: {1}{2}{3}", ex.GetType().Name, ex.Message, Environment.NewLine, ex)
+                );
+                failure.SystemException = ex;
+            }
+
+            if (failure != null) {
+                runContext.ResultSink.AddResult(failure);
+                runContext.StopTestRun();
+                return false;
+            }
+            return true;
+        }
+
+        private void AttachDebuggerIfNeeded(IRunContext runContext, Internal.VisualStudio ide) {
+            var config = runContext.RunConfig.TestRun.RunConfiguration;
+            if (config.IsExecutedUnderDebugger && ide != null) {
                 // If we're debugging, tell our host VS to attach to the new VS
                 // instance we just started.
                 bool mixedMode = false;
                 string debugMixedMode;
-                if (!vars.TryGetValue("VSDebugMixedMode", out debugMixedMode) ||
-                    !bool.TryParse(debugMixedMode, out mixedMode)) {
+                if (!config.TestSettingsProperties.TryGetValue(
+                        VSTestProperties.VSDebugMixedMode.Key,
+                        out debugMixedMode) ||
+                    !bool.TryParse(debugMixedMode, out mixedMode)
+                ) {
                     mixedMode = false;
                 }
-                TesterDebugAttacherShared.AttachDebugger(_ide.ProcessId, mixedMode);
-            }
-        }
-
-        #region ITestAdapter members
-
-        public void Initialize(IRunContext runContext) {
-            if (_ide == null) {
-                var runId = _runId = runContext.RunConfig.TestRun.Id;
-                TestRunTextResultMessage failure = null;
-
-                try {
-                    InitializeWorker(runContext).GetAwaiter().GetResult();
-                } catch (ArgumentException ex) {
-                    failure = new TestRunTextResultMessage(runId, ex.Message);
-                } catch (TimeoutException ex) {
-                    failure = new TestRunTextResultMessage(runId, ex.Message);
-                } catch (Exception ex) {
-                    failure = new TestRunTextResultMessage(
-                        runId,
-                        string.Format("{0}: {1}{2}{3}", ex.GetType().Name, ex.Message, Environment.NewLine, ex)
-                    );
-                    failure.SystemException = ex;
-                }
-
-                if (failure != null) {
-                    runContext.ResultSink.AddResult(failure);
-                    runContext.StopTestRun();
-                }
+                TesterDebugAttacherShared.AttachDebugger(ide.ProcessId, mixedMode);
             }
         }
 
@@ -273,35 +295,34 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
                 throw new InvalidOperationException(Resources.NoRunContext);
             }
 
-            var runId = runContext.RunConfig.TestRun.Id;
+            if (currentTest != null) {
+                InitializeForTest(currentTest, runContext);
+            }
 
             bool firstAttempt = true;
-
             while (retries-- > 0) {
-                if (!_mockVs) {
-                    if (!firstAttempt) {
-                        // Send a message announcing that we are retrying the call
-                        SendMessage(
-                            runContext,
-                            string.Format(
-                                Resources.RetryRemoteCall,
-                                currentTest == null ? currentTest.HumanReadableId : caller
-                            ),
-                            currentTest
-                        );
-                    }
-                    firstAttempt = false;
+                if (!_mockVs && !firstAttempt) {
+                    // Send a message announcing that we are retrying the call
+                    SendMessage(
+                        runContext,
+                        string.Format(
+                            Resources.RetryRemoteCall,
+                            currentTest != null ? currentTest.HumanReadableId : caller
+                        ),
+                        currentTest
+                    );
+                }
+                firstAttempt = false;
 
-                    if (!IsClientAlive()) {
-                        Close();
+                if (!IsClientAlive()) {
+                    Close();
 
-                        if (restartVS) {
-                            SendMessage(runContext, "Restarting VS", currentTest);
-                            Initialize(runContext);
-                        } else {
-                            SendMessage(runContext, Resources.NoClient, currentTest);
-                            return false;
-                        }
+                    if (restartVS && currentTest != null) {
+                        SendMessage(runContext, "Restarting VS", currentTest);
+                        InitializeForTest(currentTest, runContext);
+                    } else {
+                        SendMessage(runContext, Resources.NoClient, currentTest);
+                        return false;
                     }
                 }
 
@@ -334,6 +355,14 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
             }
 
             throw new InvalidOperationException(Resources.NoClient);
+        }
+
+
+        #region ITestAdapter members
+
+        public void Initialize(IRunContext runContext) {
+            _runContext = runContext;
+            _runId = runContext.RunConfig.TestRun.Id;
         }
 
         public void Cleanup() {

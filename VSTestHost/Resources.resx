@@ -126,6 +126,9 @@
   <data name="FailedToResume" xml:space="preserve">
     <value>Unable to resume test run.</value>
   </data>
+  <data name="InvalidScreenBounds" xml:space="preserve">
+    <value>Unable to determine bounds for screen capture.</value>
+  </data>
   <data name="MissingConfigurationValues" xml:space="preserve">
     <value>Some required configuration values were missing.
     VSApplication: '{0}'
