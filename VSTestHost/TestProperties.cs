@@ -31,7 +31,8 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
         public string this[string key] {
             get {
                 string value;
-                return TryGetValue(key, out value) ? value : string.Empty;
+                TryGetValue(key, out value);
+                return value;
             }
         }
 

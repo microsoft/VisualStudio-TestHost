@@ -79,6 +79,15 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to connect to Visual Studio instance. Ensure VSTestHost is installed..
+        /// </summary>
+        internal static string FailedToConnect {
+            get {
+                return ResourceManager.GetString("FailedToConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to resume test run..
         /// </summary>
         internal static string FailedToResume {
@@ -170,6 +179,15 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
         internal static string ServiceProviderAlreadySet {
             get {
                 return ResourceManager.GetString("ServiceProviderAlreadySet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to launch {1} ({0}, {2}{3}).
+        /// </summary>
+        internal static string VSFailedToLaunch {
+            get {
+                return ResourceManager.GetString("VSFailedToLaunch", resourceCulture);
             }
         }
         

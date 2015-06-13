@@ -12,21 +12,13 @@
  *
  * ***************************************************************************/
 
-#if SUPPORT_TESTER
-
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Remoting;
-using System.Runtime.Remoting.Channels;
-using System.Runtime.Remoting.Channels.Ipc;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using Microsoft.VisualStudio.TestTools.Common;
 using Microsoft.VisualStudio.TestTools.Execution;
 using Microsoft.VisualStudio.TestTools.TestAdapter;
@@ -74,13 +66,13 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
                 ide = await Internal.VisualStudio.LaunchAsync(application, executable, version, hive, cancel);
 
                 var p = Process.GetProcessById(ide.ProcessId);
-                string url = string.Format(
-                    "ipc://{0}/{1}",
-                    Internal.VSTestHostPackage.GetChannelName(Process.GetProcessById(ide.ProcessId)),
-                    TesteeTestAdapter.Url
-                );
+                var url = string.Format("ipc://{0}/{1}", VSTestHostPackage.GetChannelName(p), TesteeTestAdapter.Url);
 
-                _remote = (TesteeTestAdapter)RemotingServices.Connect(typeof(TesteeTestAdapter), url);
+                try {
+                    _remote = (TesteeTestAdapter)RemotingServices.Connect(typeof(TesteeTestAdapter), url);
+                } catch (RemotingException ex) {
+                    throw new InvalidOperationException(Resources.FailedToConnect, ex);
+                }
 
                 _currentApplication = application;
                 _currentExecutable = executable;
@@ -159,20 +151,24 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
             var vars = new TestProperties(testElement, _runContext.RunConfig.TestRun.RunConfiguration);
 
             // VSApplication is the registry key name like 'VisualStudio'
-            application = vars[VSTestProperties.VSApplication.Key];
+            application = vars[VSTestProperties.VSApplication.Key] ?? VSTestProperties.VSApplication.VisualStudio;
             // VSExecutableName is the executable name like 'devenv'
-            if (vars.TryGetValue(VSTestProperties.VSExecutable.Key, out executable) &&
-                !string.IsNullOrEmpty(executable) &&
+            if (!vars.TryGetValue(VSTestProperties.VSExecutable.Key, out executable)) {
+                executable = VSTestProperties.VSExecutable.DevEnv;
+            }
+            if (!string.IsNullOrEmpty(executable) &&
                 string.IsNullOrEmpty(Path.GetExtension(executable))) {
                 executable = Path.ChangeExtension(executable, ".exe");
             }
+
             // VSVersion is the version like '12.0'
             if (!vars.TryGetValue(VSTestProperties.VSVersion.Key, out versionString) ||
                 !Version.TryParse(versionString, out version)) {
-                version = null;
+                version = new Version(int.Parse(AssemblyVersionInfo.VSVersion), 0);
             }
+
             // VSHive is the optional hive like 'Exp'
-            hive = vars[VSTestProperties.VSHive.Key];
+            hive = vars[VSTestProperties.VSHive.Key] ?? VSTestProperties.VSHive.Exp;
 
             if (!vars.TryGetValue(VSTestProperties.VSLaunchTimeoutInSeconds.Key, out launchTimeoutInSecondsString) ||
                 !int.TryParse(launchTimeoutInSecondsString, out launchTimeoutInSeconds)) {
@@ -216,7 +212,22 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
                 await Connect(application, executable, version, hive, cts.Token);
             } catch (OperationCanceledException ex) {
                 throw new TimeoutException(string.Format(Resources.VSLaunchTimeout, launchTimeoutInSeconds), ex);
+            } catch (Exception ex) {
+                throw new InvalidOperationException(
+                    string.Format(Resources.VSFailedToLaunch, application, executable, version, hive),
+                    ex
+                );
             }
+        }
+
+        private static TestRunTextResultMessage GetFailure(Exception ex, Guid runId) {
+            var res = new TestRunTextResultMessage(runId, ex.Message);
+#if DEBUG
+            if (ex.InnerException != null) {
+                res.SystemException = ex.InnerException;
+            }
+#endif
+            return res;
         }
 
         private bool InitializeForTest(ITestElement testElement, IRunContext runContext) {
@@ -229,9 +240,11 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
 
                 AttachDebuggerIfNeeded(runContext, _ide);
             } catch (ArgumentException ex) {
-                failure = new TestRunTextResultMessage(runId, ex.Message);
+                failure = GetFailure(ex, runId);
             } catch (TimeoutException ex) {
-                failure = new TestRunTextResultMessage(runId, ex.Message);
+                failure = GetFailure(ex, runId);
+            } catch (InvalidOperationException ex) {
+                failure = GetFailure(ex, runId);
             } catch (Exception ex) {
                 failure = new TestRunTextResultMessage(
                     runId,
@@ -409,5 +422,3 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
         #endregion
     }
 }
-
-#endif

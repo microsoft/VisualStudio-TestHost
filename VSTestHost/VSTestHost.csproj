@@ -70,10 +70,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
-    <!-- All versions of VS can be the TESTEE -->
-    <DefineConstants>$(DefineConstants);SUPPORT_TESTEE</DefineConstants>
-    <!-- VS 2010 and VS 2012 cannot be the TESTER -->
-    <DefineConstants Condition="'$(VisualStudioVersion)' != '10.0' and '$(VisualStudioVersion)' != '11.0'">$(DefineConstants);SUPPORT_TESTER</DefineConstants>
     <!-- VS 2010 and VS 2012 do not declare Dispose() on Package -->
     <DefineConstants Condition="'$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '11.0'">$(DefineConstants);PACKAGE_NEEDS_DISPOSE</DefineConstants>
     <!-- Create a VS10/VS11/VS12/etc. symbol for this build -->

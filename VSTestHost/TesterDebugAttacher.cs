@@ -12,21 +12,15 @@
  *
  * ***************************************************************************/
 
-#if SUPPORT_TESTER
-
 using System;
-using System.Diagnostics;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Security.AccessControl;
 using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Task = System.Threading.Tasks.Task;
 
 namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
     sealed class TesterDebugAttacher : MarshalByRefObject {
@@ -235,5 +229,3 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
 
     }
 }
-
-#endif

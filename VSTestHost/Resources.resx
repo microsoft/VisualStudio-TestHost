@@ -123,6 +123,9 @@
   <data name="FailedToAttach" xml:space="preserve">
     <value>Unable to attach debugger to Visual Studio process.</value>
   </data>
+  <data name="FailedToConnect" xml:space="preserve">
+    <value>Failed to connect to Visual Studio instance. Ensure VSTestHost is installed.</value>
+  </data>
   <data name="FailedToResume" xml:space="preserve">
     <value>Unable to resume test run.</value>
   </data>
@@ -157,6 +160,10 @@
   </data>
   <data name="ServiceProviderAlreadySet" xml:space="preserve">
     <value>Attempted to set service provider multiple time.</value>
+  </data>
+  <data name="VSFailedToLaunch" xml:space="preserve">
+    <value>Failed to launch {1} ({0}, {2}{3})</value>
+    <comment>application, executable, version, hive</comment>
   </data>
   <data name="VSLaunchTimeout" xml:space="preserve">
     <value>Visual Studio failed to start within {0} seconds.</value>
