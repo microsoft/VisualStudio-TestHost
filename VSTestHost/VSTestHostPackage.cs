@@ -62,6 +62,11 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
         }
 
         protected override void Initialize() {
+            // Initialize the global context used by tests to access VS services
+            // and a DTE instance.
+            VSTestContext.ServiceProvider = ServiceProvider.GlobalProvider;
+            VSTestContext.IsMock = false;
+
             // Configure our IPC channel for this process and register any
             // public services. The name is keyed off the module name and
             // process ID so our host can connect to a specific instance.
@@ -87,11 +92,6 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
             UIContext.FromUIContextGuid(new Guid(UIContextGuids.Debugging)).UIContextChanged += DebuggingChanged;
 
             base.Initialize();
-
-            // Initialize the global context used by tests to access VS services
-            // and a DTE instance.
-            VSTestContext.ServiceProvider = ServiceProvider.GlobalProvider;
-            VSTestContext.IsMock = false;
         }
 
         async void DebuggingChanged(object sender, UIContextChangedEventArgs e) {
