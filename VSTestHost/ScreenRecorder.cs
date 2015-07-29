@@ -1,13 +1,25 @@
-﻿using System;
+﻿/* ****************************************************************************
+ *
+ * Copyright (c) Microsoft Corporation. 
+ *
+ * This source code is subject to terms and conditions of the Apache License, Version 2.0. A 
+ * copy of the license can be found in the License.html file at the root of this distribution. If 
+ * you cannot locate the Apache License, Version 2.0, please send an email to 
+ * vspython@microsoft.com. By using this source code in any fashion, you are agreeing to be bound 
+ * by the terms of the Apache License, Version 2.0.
+ *
+ * You must not remove this notice, or any other, from this software.
+ *
+ * ***************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.VisualStudioTools.VSTestHost.Internal;
 
@@ -60,13 +72,10 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
 
             try {
                 NextCapture();
-            } catch (OutOfMemoryException) {
-                throw;
-            } catch (ThreadAbortException) {
-                throw;
-            } catch (AccessViolationException) {
-                throw;
             } catch (Exception ex) {
+                if (ex is OutOfMemoryException || ex is ThreadAbortException || ex is AccessViolationException) {
+                    throw;
+                }
                 Failure = ex.ToString();
             }
         }

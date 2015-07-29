@@ -161,7 +161,6 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
                 }
 
                 if (screenRecorder != null && !string.IsNullOrEmpty(screenRecorder.Failure)) {
-                    System.Windows.Forms.MessageBox.Show(screenRecorder.Failure);
                     var message = new TextTestResultMessage(
                         _runContext.RunConfig.TestRun.Id,
                         testElement,
