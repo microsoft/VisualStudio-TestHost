@@ -72,8 +72,11 @@ which is responsible for executing the test.
 
 ## Test Settings
 
-VSTestHost depends on the use of a testsettings file to specify the version, SKU
-and hive of VS to use as the TESTEE. The available settings are as follows:
+VSTestHost depends on the use of a testsettings file or TestProperty attributes
+to specify the SKU and hive of VS to use as the TESTEE. Setting the version is
+possible but not recommended - by default, the same version will be used for
+the TESTEE as the TESTER, which is most stable. The available settings are as
+follows:
 
 | Setting | Description |
 | --- | --- |
@@ -83,7 +86,10 @@ and hive of VS to use as the TESTEE. The available settings are as follows:
 | VSHive [optional]  | The hive name, like "Exp" |
 | VSLaunchTimeoutInSeconds [opt] | The number of seconds to wait for launch |
 | VSDebugMixedMode | True to use mixed-mode debugging for tests |
+| ScreenCapture [opt] | Relative path to capture screenshots to |
+| ScreenCaptureInterval [opt] | Number of seconds between screenshots |
 
+Note that identical screenshots are not saved.
 
 ## Run Test Sequence
 

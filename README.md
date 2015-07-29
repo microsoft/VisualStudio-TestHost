@@ -20,30 +20,35 @@ For information about how this extension works, see the [Developer Guide](Develo
 
 The following versions of Visual Studio may be used as test *targets*:
 
-* Visual Studio 2010 Professional and higher
-* Visual Studio 2012 Professional and higher
+* Visual Studio 2015 Community and higher
+* Visual Studio Express 2015 for Web or Desktop
 * Visual Studio 2013 Community and higher
 * Visual Studio Express 2013 for Web or Desktop with Update 2
-* Visual Studio 2015 RC Community and higher
+* Visual Studio 2012 Professional and higher
+* Visual Studio 2010 Professional and higher
 
 The following versions of Visual Studio may be used to *launch* tests:
 
+* Visual Studio 2015 Community and higher
 * Visual Studio 2013 Community and higher
-* Visual Studio 2015 RC Community and higher
 
-(The difference in support is due to changes in the unit test framework.)
+(The difference in support is due to changes in the unit test framework. If possible, tests should be launched with the same version as the test target.)
 
 ## Test Settings
 
-These settings should be specified in a `.testsettings` file before launching tests.
+These settings should be specified in a `.testsettings` file or with the `TestProperty` attribute before launching tests.
 
 | Setting | Description | Values |
 | --- | --- | --- |
 | VSApplication | The registry key name | "VisualStudio", "WDExpress", "VWDExpress", "Mock" |
 | VSExecutable  | The executable name | "devenv", "wdexpress", "vwdexpress" |
-| VSVersion     | The version number | "10.0", "11.0", "12.0" or "14.0" |
+| VSVersion     | The version number | "10.0", "11.0", "12.0", "14.0" or blank (match tester) |
 | VSHive | The hive name | "Exp" or blank |
-| VSLaunchTimeoutInSeconds | The number of seconds to wait for launch | Any number, or blank |
+| VSLaunchTimeoutInSeconds | The number of seconds to wait for launch | Any number, or blank (30s) |
 | VSDebugMixedMode | Use native debugging for tests | "True", "False" or blank |
+| ScreenCapture | Directory to capture screenshots into | Blank (do not capture) or a relative path |
+| ScreenCaptureInterval | The number of seconds between screenshots | Any number, or blank (1s) |
 
 If `VSApplication` is set to `Mock`, no instance of Visual Studio will be launched and tests will be run in the current process. In this case, the `VSTestContext.IsMock` property will be `true` and `VSTestContext.ServiceProvider` should be set by your test run initializer.
+
+When screen capture is enabled, only unique screenshots are retained, and all screenshots are deleted when a test passes.
