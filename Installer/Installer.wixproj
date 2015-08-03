@@ -12,7 +12,7 @@
     <WixInstallPath>$(MSBuildThisFileDirectory)\..\Build\Wix</WixInstallPath>
     <WixTargetsPath>$(WixInstallPath)\Wix.targets</WixTargetsPath>
     <VSTestHostTarget Condition="'$(VSTestHostTarget)' == ''">Build</VSTestHostTarget>
-    <VSTargetVersions Condition="'$(VSTargetVersions)' == ''">10;11;12;14</VSTargetVersions>
+    <VSTargetVersions Condition="'$(VSTargetVersions)' == ''">11;12;14</VSTargetVersions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>

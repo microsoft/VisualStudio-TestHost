@@ -25,7 +25,6 @@ The following versions of Visual Studio may be used as test *targets*:
 * Visual Studio 2013 Community and higher
 * Visual Studio Express 2013 for Web or Desktop with Update 2
 * Visual Studio 2012 Professional and higher
-* Visual Studio 2010 Professional and higher
 
 The following versions of Visual Studio may be used to *launch* tests:
 
@@ -42,7 +41,7 @@ These settings should be specified in a `.testsettings` file or with the `TestPr
 | --- | --- | --- |
 | VSApplication | The registry key name | "VisualStudio", "WDExpress", "VWDExpress", "Mock" |
 | VSExecutable  | The executable name | "devenv", "wdexpress", "vwdexpress" |
-| VSVersion     | The version number | "10.0", "11.0", "12.0", "14.0" or blank (match tester) |
+| VSVersion     | The version number | "11.0", "12.0", "14.0" or blank (match tester) |
 | VSHive | The hive name | "Exp" or blank |
 | VSLaunchTimeoutInSeconds | The number of seconds to wait for launch | Any number, or blank (30s) |
 | VSDebugMixedMode | Use native debugging for tests | "True", "False" or blank |

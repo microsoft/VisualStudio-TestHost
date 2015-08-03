@@ -136,13 +136,17 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
         ) {
             value = null;
 
-            var runProps = runContext.RunConfig.TestRun.RunConfiguration.TestSettingsProperties;
-
             if (testElement.Properties.ContainsKey(propertyName)) {
                 value = testElement.Properties[propertyName] as string;
                 return value != null;
             }
+
+#if !VS11
+            var runProps = runContext.RunConfig.TestRun.RunConfiguration.TestSettingsProperties;
             return runProps.TryGetValue(propertyName, out value);
+#else
+            return false;
+#endif
         }
 
         public void Run(ITestElement testElement, ITestContext testContext) {
