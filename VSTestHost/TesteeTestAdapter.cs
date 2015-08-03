@@ -12,11 +12,10 @@
  *
  * ***************************************************************************/
 
-#if SUPPORT_TESTEE
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.Remoting;
 using Microsoft.VisualStudio.TestTools.Common;
@@ -129,19 +128,81 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
             }
         }
 
+        private bool TryGetProperty(
+            ITestElement testElement,
+            IRunContext runContext,
+            string propertyName,
+            out string value
+        ) {
+            value = null;
+
+            var runProps = runContext.RunConfig.TestRun.RunConfiguration.TestSettingsProperties;
+
+            if (testElement.Properties.ContainsKey(propertyName)) {
+                value = testElement.Properties[propertyName] as string;
+                return value != null;
+            }
+            return runProps.TryGetValue(propertyName, out value);
+        }
+
         public void Run(ITestElement testElement, ITestContext testContext) {
             var testAdapter = GetAdapter(testElement.Adapter);
 
-            try {
-                testAdapter.Run(testElement, testContext);
-            } catch (Exception ex) {
-                var message = new TextTestResultMessage(
-                    _runContext.RunConfig.TestRun.Id,
-                    testElement,
-                    ex.ToString()
-                );
-                testContext.ResultSink.AddResult(message);
+            using (var screenRecorder = StartSceenRecorder(testElement, _runContext)) {
+                try {
+                    testAdapter.Run(testElement, testContext);
+                } catch (Exception ex) {
+                    var message = new TextTestResultMessage(
+                        _runContext.RunConfig.TestRun.Id,
+                        testElement,
+                        ex.ToString()
+                    );
+                    testContext.ResultSink.AddResult(message);
+                }
+
+                if (screenRecorder != null && !string.IsNullOrEmpty(screenRecorder.Failure)) {
+                    var message = new TextTestResultMessage(
+                        _runContext.RunConfig.TestRun.Id,
+                        testElement,
+                        screenRecorder.Failure
+                    );
+                    testContext.ResultSink.AddResult(message);
+                }
             }
+        }
+
+        private ScreenRecorder StartSceenRecorder(ITestElement testElement, IRunContext runContext) {
+            string screenCapture;
+
+            if (!TryGetProperty(testElement, _runContext, VSTestProperties.ScreenCapture.Key, out screenCapture) ||
+                string.IsNullOrEmpty(screenCapture)) {
+                return null;
+            }
+            try {
+                if (!Path.IsPathRooted(screenCapture)) {
+                    screenCapture = Path.Combine(
+                        _runContext.RunConfig.TestRun.RunConfiguration.RunDeploymentOutDirectory,
+                        screenCapture
+                    );
+                }
+            } catch (ArgumentException) {
+                return null;
+            }
+
+            screenCapture = screenCapture.Replace("$id$", testElement.HumanReadableId);
+            screenCapture = screenCapture.Replace("$date$", DateTime.Today.ToShortDateString());
+            var screenRecorder = new ScreenRecorder(screenCapture);
+
+            string intervalString;
+            int interval;
+            if (TryGetProperty(testElement, runContext, VSTestProperties.ScreenCapture.IntervalKey, out intervalString) &&
+                int.TryParse(intervalString, out interval)) {
+                screenRecorder.Interval = TimeSpan.FromMilliseconds(interval);
+            } else {
+                screenRecorder.Interval = TimeSpan.FromSeconds(1);
+            }
+
+            return screenRecorder;
         }
 
         public void StopTestRun() {
@@ -151,5 +212,3 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
         }
     }
 }
-
-#endif

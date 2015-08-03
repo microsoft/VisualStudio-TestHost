@@ -12,8 +12,6 @@
  *
  * ***************************************************************************/
 
-#if SUPPORT_TESTER
-
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -27,7 +25,6 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.Win32;
 using Process = System.Diagnostics.Process;
 using Task = System.Threading.Tasks.Task;
-using Thread = System.Threading.Thread;
 
 namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
     class VisualStudio : IDisposable {
@@ -252,8 +249,9 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
             private static extern int CoRegisterMessageFilter(IOleMessageFilter newFilter, out IOleMessageFilter oldFilter);
         }
 
-        [ComImport(), Guid("00000016-0000-0000-C000-000000000046"),
-        InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIUnknown)]
+        [ComImport]
+        [Guid("00000016-0000-0000-C000-000000000046")]
+        [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         interface IOleMessageFilter {
             [PreserveSig]
             int HandleInComingCall(int dwCallType,
@@ -273,5 +271,3 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
         }
     }
 }
-
-#endif

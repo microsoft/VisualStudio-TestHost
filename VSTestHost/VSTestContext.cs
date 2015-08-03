@@ -12,8 +12,6 @@
  *
  * ***************************************************************************/
 
-#if SUPPORT_TESTEE
-
 using System;
 
 namespace Microsoft.VisualStudioTools.VSTestHost {
@@ -58,5 +56,3 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
         }
     }
 }
-
-#endif

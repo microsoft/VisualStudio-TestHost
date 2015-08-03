@@ -30,13 +30,11 @@ using Task = System.Threading.Tasks.Task;
 
 namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
     [PackageRegistration(UseManagedResourcesOnly = true, RegisterUsing=RegistrationMethod.Assembly)]
-    [InstalledProductRegistration("#110", "#112", "1.0.1", IconResourceID = 400)]
+    [InstalledProductRegistration("#110", "#112", "1.0.2", IconResourceID = 400)]
     [ProvideAutoLoad(VSConstants.UICONTEXT.NoSolution_string)]
     [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExists_string)]
-#if SUPPORT_TESTER
     [RegisterHostAdapter("VSTestHost", typeof(TesterTestAdapter), typeof(TesterTestControl))]
     [RegisterSupportedTestType("VSTestHost", "VS Test Host Adapter", Guids.UnitTestTypeString, "Unit Test")]
-#endif
     [Guid(Guids.VSTestHostPkgString)]
     public sealed class VSTestHostPackage : Package
 #if PACKAGE_NEEDS_DISPOSE
@@ -64,7 +62,11 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
         }
 
         protected override void Initialize() {
-#if SUPPORT_TESTEE
+            // Initialize the global context used by tests to access VS services
+            // and a DTE instance.
+            VSTestContext.ServiceProvider = ServiceProvider.GlobalProvider;
+            VSTestContext.IsMock = false;
+
             // Configure our IPC channel for this process and register any
             // public services. The name is keyed off the module name and
             // process ID so our host can connect to a specific instance.
@@ -75,9 +77,7 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
                 "vstest",
                 WellKnownObjectMode.Singleton
             );
-#endif
 
-#if SUPPORT_TESTER
             // Register our DebugAttacher service so our test adapter can tell
             // us to attach to our client.
             RemotingConfiguration.RegisterWellKnownServiceType(
@@ -90,19 +90,10 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
             // so we can start listening for incoming calls to DebugAttacher
             // only when necessary.
             UIContext.FromUIContextGuid(new Guid(UIContextGuids.Debugging)).UIContextChanged += DebuggingChanged;
-#endif
 
             base.Initialize();
-
-#if SUPPORT_TESTEE
-            // Initialize the global context used by tests to access VS services
-            // and a DTE instance.
-            VSTestContext.ServiceProvider = ServiceProvider.GlobalProvider;
-            VSTestContext.IsMock = false;
-#endif
         }
 
-#if SUPPORT_TESTER
         async void DebuggingChanged(object sender, UIContextChangedEventArgs e) {
             if (e.Activated) {
                 // We just started debugging, so publish the DebugAttacher class
@@ -129,7 +120,6 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
                 TesterDebugAttacherShared.CancelWait();
             }
         }
-#endif
 
         public static string GetChannelName(Process process) {
             return string.Format("VSTestHost_{0}_{1:X8}_06420E12_C5A1_4EEF_B604_406E6A139737",
