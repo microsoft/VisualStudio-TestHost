@@ -141,7 +141,7 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
                 return value != null;
             }
 
-#if !DEV11
+#if !VS11
             var runProps = runContext.RunConfig.TestRun.RunConfiguration.TestSettingsProperties;
             return runProps.TryGetValue(propertyName, out value);
 #else
