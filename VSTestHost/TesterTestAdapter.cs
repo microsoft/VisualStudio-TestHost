@@ -141,14 +141,11 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
         /// <param name="runContext">
         /// The context for the current test run.
         /// </param>
-        private async Task InitializeWorker(IRunContext runContext, ITestElement testElement) {
+        private async Task InitializeWorker(TestProperties vars) {
             string application, executable, versionString, hive;
             Version version;
             string launchTimeoutInSecondsString;
             int launchTimeoutInSeconds;
-
-
-            var vars = new TestProperties(testElement, _runContext.RunConfig.TestRun.RunConfiguration);
 
             // VSApplication is the registry key name like 'VisualStudio'
             application = vars[VSTestProperties.VSApplication.Key] ?? VSTestProperties.VSApplication.VisualStudio;
@@ -187,7 +184,6 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
 
             _mockVs = (application == VSTestProperties.VSApplication.Mock);
             if (_mockVs) {
-                _runContext = runContext;
                 _remote = new TesteeTestAdapter();
                 _remote.Initialize(_runContext);
                 // In the mock case tester and testee are the same process, therefore
@@ -235,10 +231,11 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
             TestRunTextResultMessage failure = null;
 
             try {
-                InitializeWorker(runContext, testElement).GetAwaiter().GetResult();
+                var vars = new TestProperties(testElement, runContext.RunConfig.TestRun.RunConfiguration);
+                InitializeWorker(vars).GetAwaiter().GetResult();
                 _remote.Initialize(_runContext);
 
-                AttachDebuggerIfNeeded(runContext, _ide);
+                AttachDebuggerIfNeeded(runContext, _ide, vars);
             } catch (ArgumentException ex) {
                 failure = GetFailure(ex, runId);
             } catch (TimeoutException ex) {
@@ -261,22 +258,20 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
             return true;
         }
 
-        private void AttachDebuggerIfNeeded(IRunContext runContext, Internal.VisualStudio ide) {
+        private void AttachDebuggerIfNeeded(IRunContext runContext, Internal.VisualStudio ide, TestProperties vars) {
             var config = runContext.RunConfig.TestRun.RunConfiguration;
-            if (config.IsExecutedUnderDebugger && ide != null) {
-                // If we're debugging, tell our host VS to attach to the new VS
-                // instance we just started.
-                bool mixedMode = false;
-                string debugMixedMode;
-                if (!config.TestSettingsProperties.TryGetValue(
-                        VSTestProperties.VSDebugMixedMode.Key,
-                        out debugMixedMode) ||
-                    !bool.TryParse(debugMixedMode, out mixedMode)
-                ) {
-                    mixedMode = false;
-                }
-                TesterDebugAttacherShared.AttachDebugger(ide.ProcessId, mixedMode);
+            if (!config.IsExecutedUnderDebugger || ide == null) {
+                return;
             }
+
+            // If we're debugging, tell our host VS to attach to the new VS
+            // instance we just started.
+            string strValue;
+            bool boolValue;
+            bool mixedMode = vars.TryGetValue(VSTestProperties.VSDebugMixedMode.Key, out strValue) &&
+                bool.TryParse(strValue, out boolValue) &&
+                boolValue;
+            TesterDebugAttacherShared.AttachDebugger(ide.ProcessId, mixedMode);
         }
 
         private void SendMessage(IRunContext runContext, string message, ITestElement currentTest = null) {

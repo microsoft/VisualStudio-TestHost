@@ -237,12 +237,11 @@ instance's DTE and global ServiceProvider objects. Unit test projects should
 include the following reference for VSTestHost:
 
 ```xml
-<Reference Include="Microsoft.VisualStudioTools.VSTestHost.$(VSTarget),
-                    Version=$(VSTarget).0.0, Culture=neutral,
-                    PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+<Reference Include="Microsoft.VisualStudioTools.VSTestHost.$(VSTarget)" />
 ```
 
 Test projects that do not refer to `VSTestContext` do not require this reference.
 
-This is the only public class in the **Microsoft.VisualStudioTools.VSTestHost**
-assembly. All other public classes are infrastructure.
+`VSTestContext` is the only public and supported class in the
+**Microsoft.VisualStudioTools.VSTestHost** assembly. All other public classes are
+infrastructure.
