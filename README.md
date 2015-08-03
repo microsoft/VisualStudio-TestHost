@@ -47,7 +47,7 @@ These settings should be specified in a `.testsettings` file or with the `TestPr
 | VSLaunchTimeoutInSeconds | The number of seconds to wait for launch | Any number, or blank (30s) |
 | VSDebugMixedMode | Use native debugging for tests | "True", "False" or blank |
 | ScreenCapture | Directory to capture screenshots into | Blank (do not capture) or a relative path |
-| ScreenCaptureInterval | The number of seconds between screenshots | Any number, or blank (1s) |
+| ScreenCaptureInterval | Milliseconds between screenshots | Any number, or blank (1000ms) |
 
 If `VSApplication` is set to `Mock`, no instance of Visual Studio will be launched and tests will be run in the current process. In this case, the `VSTestContext.IsMock` property will be `true` and `VSTestContext.ServiceProvider` should be set by your test run initializer.
 

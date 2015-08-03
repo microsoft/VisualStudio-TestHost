@@ -87,7 +87,7 @@ follows:
 | VSLaunchTimeoutInSeconds [opt] | The number of seconds to wait for launch |
 | VSDebugMixedMode | True to use mixed-mode debugging for tests |
 | ScreenCapture [opt] | Relative path to capture screenshots to |
-| ScreenCaptureInterval [opt] | Number of seconds between screenshots |
+| ScreenCaptureInterval [opt] | Milliseconds between screenshots |
 
 Note that identical screenshots are not saved.
 
