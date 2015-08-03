@@ -23,9 +23,11 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
 
         public TestProperties(ITestElement testElement, TestRunConfiguration runConfig) {
             _testElement = testElement;
+#if !DEV11
             if (runConfig != null) {
                 _testSettings = runConfig.TestSettingsProperties;
             }
+#endif
         }
 
         public string this[string key] {
