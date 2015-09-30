@@ -40,6 +40,7 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
 
         public static class VSHive {
             public const string Key = "VSHive";
+            public const string Default = "Default";
             public const string Exp = "Exp";
         }
 

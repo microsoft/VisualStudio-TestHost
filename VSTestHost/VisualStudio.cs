@@ -82,7 +82,7 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
             }
 
             var psi = new ProcessStartInfo(devenv);
-            if (!string.IsNullOrEmpty(hive)) {
+            if (!string.IsNullOrEmpty(hive) && hive != VSTestProperties.VSHive.Default) {
                 psi.Arguments = "/rootSuffix " + hive;
             }
 

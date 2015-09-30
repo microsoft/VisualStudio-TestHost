@@ -83,7 +83,7 @@ follows:
 | VSApplication | The registry key name, like "VisualStudio" or "WDExpress" |
 | VSExecutable  | The executable name, like "devenv" or "wdexpress" |
 | VSVersion     | The version number, like "12.0" or "14.0" |
-| VSHive [optional]  | The hive name, like "Exp" |
+| VSHive        | The hive name, like "Exp" or "Default" |
 | VSLaunchTimeoutInSeconds [opt] | The number of seconds to wait for launch |
 | VSDebugMixedMode | True to use mixed-mode debugging for tests |
 | ScreenCapture [opt] | Relative path to capture screenshots to |
