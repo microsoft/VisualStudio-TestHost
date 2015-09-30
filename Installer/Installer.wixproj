@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\WiX.3.9.2.1\build\wix.props" Condition="Exists('..\packages\WiX.3.9.2.1\build\wix.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -9,8 +10,6 @@
     <OutputName>VSTestHost</OutputName>
     <OutputType>Package</OutputType>
     <DefineSolutionProperties>false</DefineSolutionProperties>
-    <WixInstallPath>$(MSBuildThisFileDirectory)\..\Build\Wix</WixInstallPath>
-    <WixTargetsPath>$(WixInstallPath)\Wix.targets</WixTargetsPath>
     <VSTestHostTarget Condition="'$(VSTestHostTarget)' == ''">Build</VSTestHostTarget>
     <VSTargetVersions Condition="'$(VSTargetVersions)' == ''">11;12;14</VSTargetVersions>
   </PropertyGroup>
@@ -78,5 +77,12 @@
         $(DefineConstants)
       </DefineConstants>
     </PropertyGroup>
+  </Target>
+
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\WiX.3.9.2.1\build\wix.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WiX.3.9.2.1\build\wix.props'))" />
   </Target>
 </Project>

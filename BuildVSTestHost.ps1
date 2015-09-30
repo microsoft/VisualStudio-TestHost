@@ -18,14 +18,13 @@ if (-not $outdir) {
 }
 Write-Output "Writing output MSIs to $outdir"
 
+pushd (Join-Path $projectDir Installer)
+..\Build\nuget.exe restore packages.config -PackagesDirectory (Join-Path $projectDir packages)
+popd
+
 $originalbuildtarget = $buildtarget
 if ($sign -or $mocksign) {
     $buildtarget = "BuildVSTestHost"
-}
-
-if (-not (Test-Path $projectDir\Build\Wix\wix.targets)) {
-    Import-Module $projectDir\Build\GetWix.ps1 -Force
-    Get-Wix (mkdir -Force "$projectDir\Build\Wix") -EA Stop
 }
 
 msbuild $projectDir\Installer\Installer.wixproj `
