@@ -15,7 +15,7 @@
 LICENSE text
 
 # Projects and solutions
-*.sln text
+*.sln binary
 *.csproj text
 *.wixproj text
 
