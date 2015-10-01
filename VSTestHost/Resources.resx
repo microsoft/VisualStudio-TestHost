@@ -165,7 +165,13 @@
     <value>Failed to launch {1} ({0}, {2}{3})</value>
     <comment>application, executable, version, hive</comment>
   </data>
+  <data name="VSLaunchMessage" xml:space="preserve">
+    <value>Launching {0}: "...\Microsoft Visual Studio {2}\Common7\IDE\{1}{3}"</value>
+  </data>
   <data name="VSLaunchTimeout" xml:space="preserve">
     <value>Visual Studio failed to start within {0} seconds.</value>
+  </data>
+  <data name="VSReuseMessage" xml:space="preserve">
+    <value>Reusing {0}: "...\Microsoft Visual Studio {2}\Common7\IDE\{1}{3}"</value>
   </data>
 </root>
