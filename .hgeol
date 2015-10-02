@@ -1,37 +1,8 @@
 [patterns]
 
-# Non human-editable files are binary
-
-**.dsp  = BIN
-**.dsw  = BIN
-**.mk   = BIN
 **.sln  = BIN
-**.vcproj  = BIN
-**.vsprops = BIN
-
-**.aif  = BIN
-**.aifc = BIN
-**.aiff = BIN
-**.au   = BIN
-**.bmp  = BIN
-**.db   = BIN
-**.exe  = BIN
-**.icns = BIN
-**.gif  = BIN
 **.ico  = BIN
-**.info = BIN
-**.jpg  = BIN
-**.pck  = BIN
-**.png  = BIN
-**.psd  = BIN
-**.tar  = BIN
-**.wav  = BIN
-**.whl  = BIN
-**.xar  = BIN
-**.zip  = BIN
-
-# Windows batch files work best with CRLF, there can be subtle problems with LF
-**.bat = CRLF
+**.snk  = BIN
 
 # All other files (which presumably are human-editable) are "native".
 # This must be the last rule!

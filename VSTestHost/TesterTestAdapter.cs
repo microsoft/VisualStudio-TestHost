@@ -48,18 +48,37 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
             string executable,
             Version version,
             string hive,
+            IRunContext runContext,
+            ITestElement currentTest,
             CancellationToken cancel
         ) {
+            var hiveOption = string.IsNullOrEmpty(hive) ? "" : (" /rootSuffix " + hive);
+
             if (_ide != null &&
                 _remote != null &&
                 application == _currentApplication &&
                 executable == _currentExecutable &&
                 version == _currentVersion &&
                 hive == _currentHive) {
+                if (runContext != null) {
+                    SendMessage(
+                        runContext,
+                        string.Format(Resources.VSReuseMessage, application, executable, version, hiveOption),
+                        currentTest
+                    );
+                }
                 return;
             }
 
             Close();
+
+            if (runContext != null) {
+                SendMessage(
+                    runContext,
+                    string.Format(Resources.VSLaunchMessage, application, executable, version, hiveOption),
+                    currentTest
+                );
+            }
 
             Internal.VisualStudio ide = null;
             try {
@@ -141,7 +160,11 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
         /// <param name="runContext">
         /// The context for the current test run.
         /// </param>
-        private async Task InitializeWorker(TestProperties vars) {
+        private async Task InitializeWorker(
+            TestProperties vars,
+            IRunContext runContext,
+            ITestElement currentTest = null
+        ) {
             string application, executable, versionString, hive;
             Version version;
             string launchTimeoutInSecondsString;
@@ -165,7 +188,7 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
             }
 
             // VSHive is the optional hive like 'Exp'
-            hive = vars[VSTestProperties.VSHive.Key] ?? VSTestProperties.VSHive.Exp;
+            hive = vars[VSTestProperties.VSHive.Key];
 
             if (!vars.TryGetValue(VSTestProperties.VSLaunchTimeoutInSeconds.Key, out launchTimeoutInSecondsString) ||
                 !int.TryParse(launchTimeoutInSecondsString, out launchTimeoutInSeconds)) {
@@ -178,7 +201,7 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
                     application ?? "(null)",
                     executable ?? "(null)",
                     version != null ? version.ToString() : "(null)",
-                    hive ?? "(null)"
+                    hive ?? "(default)"
                 ));
             }
 
@@ -205,7 +228,7 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
 
             var cts = new CancellationTokenSource(TimeSpan.FromSeconds(launchTimeoutInSeconds));
             try {
-                await Connect(application, executable, version, hive, cts.Token);
+                await Connect(application, executable, version, hive, runContext, currentTest, cts.Token);
             } catch (OperationCanceledException ex) {
                 throw new TimeoutException(string.Format(Resources.VSLaunchTimeout, launchTimeoutInSeconds), ex);
             } catch (Exception ex) {
@@ -216,8 +239,8 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
             }
         }
 
-        private static TestRunTextResultMessage GetFailure(Exception ex, Guid runId) {
-            var res = new TestRunTextResultMessage(runId, ex.Message);
+        private static TextTestResultMessage GetFailure(Exception ex, Guid runId, ITestElement currentTest) {
+            var res = new TextTestResultMessage(runId, currentTest, ex.Message);
 #if DEBUG
             if (ex.InnerException != null) {
                 res.SystemException = ex.InnerException;
@@ -228,25 +251,22 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
 
         private bool InitializeForTest(ITestElement testElement, IRunContext runContext) {
             var runId = runContext.RunConfig.TestRun.Id;
-            TestRunTextResultMessage failure = null;
+            TestResultMessage failure = null;
 
             try {
                 var vars = new TestProperties(testElement, runContext.RunConfig.TestRun.RunConfiguration);
-                InitializeWorker(vars).GetAwaiter().GetResult();
+                InitializeWorker(vars, runContext, testElement).GetAwaiter().GetResult();
                 _remote.Initialize(_runContext);
 
                 AttachDebuggerIfNeeded(runContext, _ide, vars);
             } catch (ArgumentException ex) {
-                failure = GetFailure(ex, runId);
+                failure = GetFailure(ex, runId, testElement);
             } catch (TimeoutException ex) {
-                failure = GetFailure(ex, runId);
+                failure = GetFailure(ex, runId, testElement);
             } catch (InvalidOperationException ex) {
-                failure = GetFailure(ex, runId);
+                failure = GetFailure(ex, runId, testElement);
             } catch (Exception ex) {
-                failure = new TestRunTextResultMessage(
-                    runId,
-                    string.Format("{0}: {1}{2}{3}", ex.GetType().Name, ex.Message, Environment.NewLine, ex)
-                );
+                failure = GetFailure(ex, runId, testElement);
                 failure.SystemException = ex;
             }
 

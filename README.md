@@ -42,7 +42,7 @@ These settings should be specified in a `.testsettings` file or with the `TestPr
 | VSApplication | The registry key name | "VisualStudio", "WDExpress", "VWDExpress", "Mock" |
 | VSExecutable  | The executable name | "devenv", "wdexpress", "vwdexpress" |
 | VSVersion     | The version number | "11.0", "12.0", "14.0" or blank (match tester) |
-| VSHive | The hive name | "Exp" or blank |
+| VSHive | The hive name | "Exp" or "Default" |
 | VSLaunchTimeoutInSeconds | The number of seconds to wait for launch | Any number, or blank (30s) |
 | VSDebugMixedMode | Use native debugging for tests | "True", "False" or blank |
 | ScreenCapture | Directory to capture screenshots into | Blank (do not capture) or a relative path |
