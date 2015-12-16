@@ -23,7 +23,7 @@ using System.Windows.Automation;
 using Accessibility;
 using Microsoft.VisualStudio.OLE.Interop;
 
-namespace TestUtilities {
+namespace Microsoft.VisualStudioTools.TestUtilities {
     /// <summary>
     /// Unmanaged API wrappers.
     /// </summary>

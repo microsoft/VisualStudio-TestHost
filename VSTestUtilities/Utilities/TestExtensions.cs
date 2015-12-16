@@ -14,13 +14,13 @@
 // See the Apache Version 2.0 License for specific language governing
 // permissions and limitations under the License.
 
-using EnvDTE;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using EnvDTE;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestUtilities {
+namespace Microsoft.VisualStudioTools.TestUtilities {
     public static class TestExtensions {
         public static void SetStartupFile(this Project project, string name) {
             Assert.IsNotNull(project, "null project");

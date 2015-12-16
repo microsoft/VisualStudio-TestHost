@@ -16,7 +16,7 @@
 
 using System;
 
-namespace TestUtilities {
+namespace Microsoft.VisualStudioTools.TestUtilities {
     public interface IOverwriteFile : IDisposable {
         string Text { get; }
 

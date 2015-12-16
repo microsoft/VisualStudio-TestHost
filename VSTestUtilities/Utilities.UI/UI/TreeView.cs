@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Automation;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     public class TreeView : AutomationWrapper {
 
         public TreeView(AutomationElement element)

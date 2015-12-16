@@ -17,7 +17,7 @@
 using System;
 using Microsoft.VisualStudio.Text;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockTextVersion : ITextVersion {
         private readonly int _version;
         internal readonly MockTextSnapshot _snapshot;

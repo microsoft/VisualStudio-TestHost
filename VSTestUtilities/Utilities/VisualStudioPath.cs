@@ -18,7 +18,7 @@ using System;
 using System.IO;
 using Microsoft.Win32;
 
-namespace TestUtilities {
+namespace Microsoft.VisualStudioTools.TestUtilities {
     public static class VisualStudioPath {
         private static string _root = GetRootPath();
 

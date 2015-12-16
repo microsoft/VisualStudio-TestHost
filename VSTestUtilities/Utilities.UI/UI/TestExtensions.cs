@@ -22,10 +22,10 @@ using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudioTools.MockVsTests;
+using Microsoft.VisualStudioTools.TestUtilities.SharedProject;
 using Microsoft.VisualStudioTools.VSTestHost;
-using TestUtilities.SharedProject;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     public static class TestExtensions {
         public static IVisualStudioInstance ToVs(this SolutionFile self) {
             if (VSTestContext.IsMock) {

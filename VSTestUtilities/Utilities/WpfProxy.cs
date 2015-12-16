@@ -15,19 +15,15 @@
 // permissions and limitations under the License.
 
 using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Dynamic;
 using System.Reflection;
-using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
-using Microsoft.VisualStudio;
 
-namespace TestUtilities {
+namespace Microsoft.VisualStudioTools.TestUtilities {
     public class WpfProxy : IDisposable {
         private readonly Thread _thread;
         private readonly Dispatcher _dispatcher;

@@ -15,11 +15,10 @@
 // permissions and limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using MSBuild = Microsoft.Build.Evaluation;
 
-namespace TestUtilities.SharedProject {
+namespace Microsoft.VisualStudioTools.TestUtilities.SharedProject {
     /// <summary>
     /// Class used to define a project.  A project consists of a type, a name, 
     /// the items in the project (which will be generated at test time) as well as

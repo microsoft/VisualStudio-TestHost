@@ -19,7 +19,7 @@ using System.Windows.Input;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell.Interop;
-using TestUtilities;
+using Microsoft.VisualStudioTools.TestUtilities;
 
 namespace Microsoft.VisualStudioTools.MockVsTests {
     class MockTreeNode : ITreeNode {

@@ -25,7 +25,7 @@ using System.Xml;
 using System.Xml.XPath;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestUtilities
+namespace Microsoft.VisualStudioTools.TestUtilities
 {
     public static class AssertUtil
     {

@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Microsoft.VisualStudioTools.MockVsTests</RootNamespace>
-    <AssemblyName>MockVsTests</AssemblyName>
+    <AssemblyName>Microsoft.VisualStudioTools.MockVsTests.$(VSTarget)</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>

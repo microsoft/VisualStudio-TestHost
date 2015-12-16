@@ -20,7 +20,7 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.Win32;
 
-namespace TestUtilities {
+namespace Microsoft.VisualStudioTools.TestUtilities {
     public class VCCompiler {
         public readonly string BinPath;
 

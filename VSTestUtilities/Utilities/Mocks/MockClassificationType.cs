@@ -17,7 +17,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text.Classification;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockClassificationType : IClassificationType {
         private readonly string _name;
         private readonly List<IClassificationType> _bases;

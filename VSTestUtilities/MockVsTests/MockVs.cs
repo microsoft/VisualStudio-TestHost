@@ -41,8 +41,8 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.Utilities;
-using TestUtilities;
-using TestUtilities.Mocks;
+using Microsoft.VisualStudioTools.TestUtilities;
+using Microsoft.VisualStudioTools.TestUtilities.Mocks;
 using Thread = System.Threading.Thread;
 
 namespace Microsoft.VisualStudioTools.MockVsTests {

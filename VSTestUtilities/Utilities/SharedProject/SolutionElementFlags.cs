@@ -16,7 +16,7 @@
 
 using System;
 
-namespace TestUtilities.SharedProject {
+namespace Microsoft.VisualStudioTools.TestUtilities.SharedProject {
     [Flags]
     public enum SolutionElementFlags {
         None,

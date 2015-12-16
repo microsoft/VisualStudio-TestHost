@@ -22,7 +22,7 @@ using System.Text.RegularExpressions;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockActivityLog : IVsActivityLog {
         public readonly List<string> Items = new List<string>();
 

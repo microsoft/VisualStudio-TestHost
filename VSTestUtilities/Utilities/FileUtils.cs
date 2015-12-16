@@ -23,7 +23,7 @@ using System.Text;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestUtilities {
+namespace Microsoft.VisualStudioTools.TestUtilities {
     public static class FileUtils {
         public static void CopyDirectory(string sourceDir, string destDir) {
             sourceDir = sourceDir.TrimEnd('\\');

@@ -18,7 +18,7 @@ using System;
 using System.Threading;
 using System.Windows.Automation;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     public class AzureCloudServiceActivityLog : AutomationWrapper {
         public AzureCloudServiceActivityLog(AutomationElement element)
             : base(element) {

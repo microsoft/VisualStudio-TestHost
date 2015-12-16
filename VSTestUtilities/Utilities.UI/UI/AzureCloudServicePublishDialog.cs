@@ -15,12 +15,9 @@
 // permissions and limitations under the License.
 
 using System;
-using System.IO;
-using System.Threading.Tasks;
 using System.Windows.Automation;
-using Microsoft.VisualStudio.Shell.Interop;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     public class AzureCloudServicePublishDialog : AutomationDialog {
         public AzureCloudServicePublishDialog(VisualStudioApp app, AutomationElement element)
             : base(app, element) {

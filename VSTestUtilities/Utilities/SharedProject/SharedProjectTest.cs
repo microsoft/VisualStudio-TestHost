@@ -22,9 +22,8 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.Build.Construction;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.VisualStudioTools;
 
-namespace TestUtilities.SharedProject {
+namespace Microsoft.VisualStudioTools.TestUtilities.SharedProject {
     /// <summary>
     /// Base class for all test cases which generate projects at runtime in a language
     /// agnostic way.  This class will initialize the MEF catalog and get the various

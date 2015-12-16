@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.VisualStudio.Text;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockTextSnapshot : ITextSnapshot {
         private readonly string _text;
         private string[] _lines;

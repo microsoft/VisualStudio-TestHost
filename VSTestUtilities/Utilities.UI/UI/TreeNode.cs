@@ -21,7 +21,7 @@ using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Input;
 
-namespace TestUtilities.UI
+namespace Microsoft.VisualStudioTools.TestUtilities.UI
 {
     public class TreeNode : AutomationWrapper, ITreeNode
     {

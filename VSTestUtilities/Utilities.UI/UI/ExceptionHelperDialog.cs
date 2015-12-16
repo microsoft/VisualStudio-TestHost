@@ -16,7 +16,7 @@
 
 using System.Windows.Automation;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     public class ExceptionHelperDialog : AutomationWrapper {
         public ExceptionHelperDialog(AutomationElement element)
             : base(element) {

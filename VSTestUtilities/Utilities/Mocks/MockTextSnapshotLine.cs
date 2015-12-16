@@ -14,11 +14,10 @@
 // See the Apache Version 2.0 License for specific language governing
 // permissions and limitations under the License.
 
-using System;
 using System.Diagnostics;
 using Microsoft.VisualStudio.Text;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockTextSnapshotLine : ITextSnapshotLine {
         private readonly MockTextSnapshot _snapshot;
         private readonly string _text;

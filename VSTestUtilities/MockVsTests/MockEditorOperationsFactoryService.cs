@@ -16,7 +16,7 @@
 
 using System.ComponentModel.Composition;
 using Microsoft.VisualStudio.Text.Operations;
-using TestUtilities.Mocks;
+using Microsoft.VisualStudioTools.TestUtilities.Mocks;
 
 namespace Microsoft.VisualStudioTools.MockVsTests {
     [Export(typeof(IEditorOperationsFactoryService))]

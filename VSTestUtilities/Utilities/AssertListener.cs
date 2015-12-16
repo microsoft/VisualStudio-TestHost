@@ -21,10 +21,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Threading;
-using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestUtilities {
+namespace Microsoft.VisualStudioTools.TestUtilities {
     public class AssertListener : TraceListener {
         private readonly SynchronizationContext _testContext;
         private readonly List<ExceptionDispatchInfo> _unhandled = new List<ExceptionDispatchInfo>();

@@ -20,7 +20,7 @@ using System.Linq;
 using System.Windows.Automation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     public class SolutionExplorerTree : TreeView {
         public SolutionExplorerTree(AutomationElement element)
             : base(element) {

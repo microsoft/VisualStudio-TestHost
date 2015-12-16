@@ -21,7 +21,7 @@ using System.Linq;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestUtilities {
+namespace Microsoft.VisualStudioTools.TestUtilities {
     public sealed class ProcessScope : IDisposable {
         private readonly string[] _names;
         private readonly HashSet<int> _alreadyRunning;

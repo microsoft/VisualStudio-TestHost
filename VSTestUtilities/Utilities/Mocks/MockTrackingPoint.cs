@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.VisualStudio.Text;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockTrackingPoint : ITrackingPoint {
         private readonly int _position;
         private readonly MockTextSnapshot _snapshot;

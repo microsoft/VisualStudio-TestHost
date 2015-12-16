@@ -33,7 +33,7 @@ using Microsoft.VisualStudioTools.VSTestHost;
 using IOleServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 using Task = System.Threading.Tasks.Task;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     /// <summary>
     /// Provides wrappers for automating the VisualStudio UI.
     /// </summary>

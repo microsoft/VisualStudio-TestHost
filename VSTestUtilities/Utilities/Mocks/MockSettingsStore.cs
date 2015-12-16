@@ -20,7 +20,7 @@ using System.Linq;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockSettingsStore : IVsSettingsStore, IVsWritableSettingsStore {
         private readonly List<Tuple<string, string, object>> Settings = new List<Tuple<string, string, object>>();
 

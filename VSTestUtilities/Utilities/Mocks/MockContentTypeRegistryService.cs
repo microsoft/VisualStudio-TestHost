@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using Microsoft.VisualStudio.Utilities;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     [Export(typeof(IContentTypeRegistryService))]
     public class MockContentTypeRegistryService : IContentTypeRegistryService {
         private readonly Dictionary<string, MockContentType> _contentTypes = new Dictionary<string, MockContentType>(StringComparer.InvariantCultureIgnoreCase);

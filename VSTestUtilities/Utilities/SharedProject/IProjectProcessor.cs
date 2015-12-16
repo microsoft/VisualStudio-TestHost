@@ -16,7 +16,7 @@
 
 using MSBuild = Microsoft.Build.Evaluation;
 
-namespace TestUtilities.SharedProject {
+namespace Microsoft.VisualStudioTools.TestUtilities.SharedProject {
     /// <summary>
     /// Updates the generated file before and/or after the project file is generated.
     /// 

@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockVsShell : IVsShell {
         public readonly Dictionary<int, object> Properties = new Dictionary<int, object>();
         public readonly object ReadOnlyPropertyValue = new object();

@@ -17,11 +17,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Documents;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Projection;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockBufferGraph : IBufferGraph {
         private readonly MockTextView _view;
         private readonly List<ITextBuffer> _buffers = new List<ITextBuffer>();

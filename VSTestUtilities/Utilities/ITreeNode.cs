@@ -16,7 +16,8 @@
 
 
 using System.Windows.Input;
-namespace TestUtilities {
+
+namespace Microsoft.VisualStudioTools.TestUtilities {
     public interface ITreeNode {
         void Select();
         void AddToSelection();

@@ -17,7 +17,7 @@
 using System;
 using System.ComponentModel.Composition;
 
-namespace TestUtilities.SharedProject {
+namespace Microsoft.VisualStudioTools.TestUtilities.SharedProject {
     /// <summary>
     /// Registers the project type guid for a project.  See ProjectTypeDefinition
     /// for how this is used.  This attribute is required.

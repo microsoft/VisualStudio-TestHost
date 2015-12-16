@@ -17,7 +17,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Utilities;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockContentType : IContentType {
         private readonly string _name;
         private readonly List<IContentType> _bases;

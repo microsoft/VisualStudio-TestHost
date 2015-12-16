@@ -15,8 +15,8 @@
 // permissions and limitations under the License.
 
 using Microsoft.VisualStudio;
-using TestUtilities;
-using TestUtilities.SharedProject;
+using Microsoft.VisualStudioTools.TestUtilities;
+using Microsoft.VisualStudioTools.TestUtilities.SharedProject;
 
 namespace Microsoft.VisualStudioTools.MockVsTests {
     public static class MockVsTestExtensions {

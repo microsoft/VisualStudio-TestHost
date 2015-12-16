@@ -17,7 +17,7 @@
 using System.IO;
 using MSBuild = Microsoft.Build.Evaluation;
 
-namespace TestUtilities.SharedProject {
+namespace Microsoft.VisualStudioTools.TestUtilities.SharedProject {
     /// <summary>
     /// Generates a file and project item of type Content and if not excluded 
     /// adds it to the generated project.

@@ -23,7 +23,7 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Utilities;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     public class SmartTagSessionWrapper : IIntellisenseSession {
 #if DEV14_OR_LATER
         private readonly SessionHolder<ILightBulbSession> _sessionHolder;

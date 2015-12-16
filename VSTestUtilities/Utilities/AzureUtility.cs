@@ -15,13 +15,12 @@
 // permissions and limitations under the License.
 
 using System;
-using System.Management.Automation;
 using System.Threading;
 using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Win32;
 
-namespace TestUtilities {
+namespace Microsoft.VisualStudioTools.TestUtilities {
     public static class AzureUtility {
         public static class ToolsVersion {
             public static Version V22 = new Version(2, 2);
@@ -62,7 +61,7 @@ namespace TestUtilities {
 
         public static bool DeleteCloudService(string subscriptionPublishSettingsFilePath, string serviceName) {
             var subscriptionName = FirstSubscriptionNameFromPublishSettings(subscriptionPublishSettingsFilePath);
-            using (var ps = PowerShell.Create()) {
+            using (var ps = System.Management.Automation.PowerShell.Create()) {
                 ps.AddCommand("Set-ExecutionPolicy").AddParameter("Scope", "Process").AddParameter("ExecutionPolicy", "Unrestricted");
                 ps.Invoke();
                 ps.AddScript(@"
@@ -81,7 +80,7 @@ namespace TestUtilities {
 
         public static bool DeleteWebSite(string subscriptionPublishSettingsFilePath, string webSiteName) {
             var subscriptionName = FirstSubscriptionNameFromPublishSettings(subscriptionPublishSettingsFilePath);
-            using (var ps = PowerShell.Create()) {
+            using (var ps = System.Management.Automation.PowerShell.Create()) {
                 ps.AddCommand("Set-ExecutionPolicy").AddParameter("Scope", "Process").AddParameter("ExecutionPolicy", "Unrestricted");
                 ps.Invoke();
                 ps.AddScript(@"

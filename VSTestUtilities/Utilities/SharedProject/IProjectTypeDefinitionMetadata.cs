@@ -16,7 +16,7 @@
 
 using System.ComponentModel;
 
-namespace TestUtilities.SharedProject {
+namespace Microsoft.VisualStudioTools.TestUtilities.SharedProject {
     /// <summary>
     /// Metadata interface for getting information about declared project kinds.
     /// MEF requires that this be public.

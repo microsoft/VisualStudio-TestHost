@@ -25,7 +25,7 @@ using Microsoft.Internal.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell.Interop;
-using TestUtilities;
+using Microsoft.VisualStudioTools.TestUtilities;
 
 namespace Microsoft.VisualStudioTools.MockVsTests {
     class MockVsUIHierarchyWindow : IVsUIHierarchyWindow, IOleCommandTarget, ISelectionContainer {

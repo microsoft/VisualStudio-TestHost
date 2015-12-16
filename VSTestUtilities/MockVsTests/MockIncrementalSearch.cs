@@ -16,7 +16,7 @@
 
 using System;
 using Microsoft.VisualStudio.Text.IncrementalSearch;
-using TestUtilities.Mocks;
+using Microsoft.VisualStudioTools.TestUtilities.Mocks;
 
 namespace Microsoft.VisualStudioTools.MockVsTests {
     class MockIncrementalSearch : IIncrementalSearch {

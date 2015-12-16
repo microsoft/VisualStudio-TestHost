@@ -16,7 +16,7 @@
 
 using MSBuild = Microsoft.Build.Evaluation;
 
-namespace TestUtilities.SharedProject {
+namespace Microsoft.VisualStudioTools.TestUtilities.SharedProject {
     /// <summary>
     /// Groups a set of ProjectContentGenerator together.
     /// 

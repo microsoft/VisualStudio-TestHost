@@ -17,7 +17,7 @@
 using System;
 using System.Windows.Automation;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     public class AzureManageSubscriptionsDialog : AutomationDialog {
         public AzureManageSubscriptionsDialog(VisualStudioApp app, AutomationElement element)
             : base(app, element) {

@@ -13,11 +13,11 @@
 //
 // See the Apache Version 2.0 License for specific language governing
 // permissions and limitations under the License.
-using System;
+
 using System.IO;
 using MSBuild = Microsoft.Build.Evaluation;
 
-namespace TestUtilities.SharedProject {
+namespace Microsoft.VisualStudioTools.TestUtilities.SharedProject {
     /// <summary>
     /// Generates a folder and if not excluded adds it to the generated project.
     /// </summary>

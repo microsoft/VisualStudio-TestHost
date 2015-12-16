@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using Microsoft.VisualStudio.ComponentModelHost;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockServiceProvider : IServiceProvider, IServiceContainer {
         public readonly Dictionary<Guid, object> Services = new Dictionary<Guid, object>();
         public readonly MockComponentModel ComponentModel = new MockComponentModel();

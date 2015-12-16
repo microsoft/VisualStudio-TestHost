@@ -14,11 +14,10 @@
 // See the Apache Version 2.0 License for specific language governing
 // permissions and limitations under the License.
 
-using System;
 using System.Windows.Automation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     public class ChooseLocationDialog : AutomationDialog {
         public ChooseLocationDialog(VisualStudioApp app, AutomationElement element)
             : base(app, element) {

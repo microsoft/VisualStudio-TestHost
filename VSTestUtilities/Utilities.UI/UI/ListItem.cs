@@ -17,7 +17,7 @@
 using System.Windows.Automation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     public class ListItem : AutomationWrapper {
         private ListView _parent;
         private AutomationElementCollection _columns;

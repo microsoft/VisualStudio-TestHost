@@ -22,7 +22,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.IncrementalSearch;
-using TestUtilities.Mocks;
+using Microsoft.VisualStudioTools.TestUtilities.Mocks;
 
 namespace Microsoft.VisualStudioTools.MockVsTests {
     [Export(typeof(IIncrementalSearchFactoryService))]

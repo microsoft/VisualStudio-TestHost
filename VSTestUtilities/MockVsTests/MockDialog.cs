@@ -16,7 +16,7 @@
 
 using System;
 using System.Threading;
-using TestUtilities;
+using Microsoft.VisualStudioTools.TestUtilities;
 
 namespace Microsoft.VisualStudioTools.MockVsTests {
     class MockDialog {

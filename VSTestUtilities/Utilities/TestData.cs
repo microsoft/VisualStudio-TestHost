@@ -15,14 +15,11 @@
 // permissions and limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
-using Microsoft.VisualStudioTools;
 
-namespace TestUtilities {
+namespace Microsoft.VisualStudioTools.TestUtilities {
     public static class TestData {
         const string BinariesAltSourcePath = @"Tests";
         const string BinariesSourcePath = @"BuildOutput\" +

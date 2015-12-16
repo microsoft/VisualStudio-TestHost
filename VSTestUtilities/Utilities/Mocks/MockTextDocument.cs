@@ -19,7 +19,7 @@ using System.IO;
 using System.Text;
 using Microsoft.VisualStudio.Text;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockTextDocument : ITextDocument {
         private string _filePath;
         private readonly ITextBuffer _buffer;

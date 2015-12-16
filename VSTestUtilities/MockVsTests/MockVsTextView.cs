@@ -29,8 +29,8 @@ using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.TextManager.Interop;
-using TestUtilities;
-using TestUtilities.Mocks;
+using Microsoft.VisualStudioTools.TestUtilities;
+using Microsoft.VisualStudioTools.TestUtilities.Mocks;
 using IServiceProvider = System.IServiceProvider;
 
 namespace Microsoft.VisualStudioTools.MockVsTests {

@@ -21,9 +21,8 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
 using System.Windows.Input;
-using TestUtilities;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     /// <summary>
     /// Exposes a simple interface to common keyboard operations, allowing the user to simulate keyboard input.
     /// </summary>

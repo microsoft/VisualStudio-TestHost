@@ -10,8 +10,8 @@
     <ProjectGuid>{D092D54E-FF29-4D32-9AEE-4EF704C92F67}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestUtilities</RootNamespace>
-    <AssemblyName>TestUtilities</AssemblyName>
+    <RootNamespace>Microsoft.VisualStudioTools.TestUtilities</RootNamespace>
+    <AssemblyName>Microsoft.VisualStudioTools.TestUtilities.$(VSTarget)</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
     <VSTarget Condition="$(VSTarget)=='' and '$(VisualStudioVersion)'=='11.0'">11.0</VSTarget>

@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Windows.Automation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     public class CheckListView : AutomationWrapper {
         private List<CheckBox> _items;
         private Header _header;

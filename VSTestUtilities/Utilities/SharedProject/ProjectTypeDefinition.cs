@@ -15,7 +15,7 @@
 // permissions and limitations under the License.
 
 
-namespace TestUtilities.SharedProject {
+namespace Microsoft.VisualStudioTools.TestUtilities.SharedProject {
     /// <summary>
     /// Defines a project type definition, an instance of this gets exported:
     /// 

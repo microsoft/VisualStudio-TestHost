@@ -18,7 +18,7 @@ using System;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Projection;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockMappingPoint : IMappingPoint {
         private readonly ITrackingPoint _trackingPoint;
 

@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text.Editor;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockTextOptions : IEditorOptions {
         private readonly Dictionary<string, object> _options = new Dictionary<string, object> {
             { DefaultOptions.ConvertTabsToSpacesOptionName, true },

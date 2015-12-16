@@ -16,7 +16,7 @@
 
 using System;
 
-namespace TestUtilities {
+namespace Microsoft.VisualStudioTools.TestUtilities {
     public interface IAddNewItem : IDisposable {
         string FileName { get; set; }
 

@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.Windows.Automation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     public class Header : AutomationWrapper {
         private Dictionary<string, int> _columns = new Dictionary<string, int>();
         public Dictionary<string, int> Columns {

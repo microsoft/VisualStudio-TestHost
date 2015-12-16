@@ -22,7 +22,7 @@ using System.Windows.Automation;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudioTools.VSTestHost;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     public class AutomationWrapper {
         private readonly AutomationElement _element;
         

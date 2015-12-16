@@ -20,7 +20,7 @@ using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
-using TestUtilities.Mocks;
+using Microsoft.VisualStudioTools.TestUtilities.Mocks;
 
 namespace Microsoft.VisualStudioTools.MockVsTests {
     [Export(typeof(MockVsEditorAdaptersFactoryService))]

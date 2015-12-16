@@ -16,11 +16,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
+using System.Text;
 using Microsoft.VisualStudio.Text;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockTextEdit : ITextEdit {
         private readonly List<Edit> _edits = new List<Edit>();
         private readonly MockTextSnapshot _snapshot;

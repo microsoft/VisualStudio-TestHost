@@ -20,7 +20,7 @@ using System.Windows.Input;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell.Interop;
 
-namespace TestUtilities {
+namespace Microsoft.VisualStudioTools.TestUtilities {
     public interface IVisualStudioInstance : IDisposable {
         void Type(Key key);
 

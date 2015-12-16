@@ -15,7 +15,7 @@
 // permissions and limitations under the License.
 
 
-namespace TestUtilities {
+namespace Microsoft.VisualStudioTools.TestUtilities {
     // http://msdn.microsoft.com/en-us/library/ms645505(VS.85).aspx
     public enum MessageBoxButton {
         Abort = 3,

@@ -16,10 +16,9 @@
 
 using System;
 using System.Windows.Automation;
-using System.Windows.Input;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     public class SelectFolderDialog : AutomationDialog {
         public SelectFolderDialog(VisualStudioApp app, AutomationElement element)
             : base(app, element) {

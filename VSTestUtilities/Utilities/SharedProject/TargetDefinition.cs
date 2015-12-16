@@ -18,7 +18,7 @@ using System;
 using Microsoft.Build.Construction;
 using MSBuild = Microsoft.Build.Evaluation;
 
-namespace TestUtilities.SharedProject {
+namespace Microsoft.VisualStudioTools.TestUtilities.SharedProject {
     public class TargetDefinition : ProjectContentGenerator {
         public readonly string Name;
         public readonly Action<ProjectTargetElement>[] Creators;

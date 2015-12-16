@@ -18,7 +18,7 @@ using System.ComponentModel.Composition;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text.Editor;
 
-namespace PythonToolsMockTests {
+namespace Microsoft.VisualStudioTools.MockVsTests {
     [Export(typeof(IIntellisenseSessionStackMapService))]
     class MockIntellisenseSessionStackMapService : IIntellisenseSessionStackMapService {
         public IIntellisenseSessionStack GetStackForTextView(ITextView textView) {

@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     [ComVisible(true)]
     public class MockSettingsManager : IVsSettingsManager {
         public readonly MockSettingsStore Store = new MockSettingsStore();

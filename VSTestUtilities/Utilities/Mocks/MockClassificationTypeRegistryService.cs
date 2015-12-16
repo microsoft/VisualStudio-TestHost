@@ -22,7 +22,7 @@ using System.Reflection;
 using Microsoft.VisualStudio.Language.StandardClassification;
 using Microsoft.VisualStudio.Text.Classification;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     [Export(typeof(IClassificationTypeRegistryService))]
     public class MockClassificationTypeRegistryService : IClassificationTypeRegistryService {
         static Dictionary<string, MockClassificationType> _types = new Dictionary<string, MockClassificationType>();

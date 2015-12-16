@@ -19,7 +19,7 @@ using System.IO;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Utilities;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockTextBuffer : ITextBuffer {
         private readonly IContentType _contentType;
         internal MockTextSnapshot _snapshot;

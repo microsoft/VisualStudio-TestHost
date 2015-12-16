@@ -17,7 +17,7 @@
 using System;
 using Microsoft.VisualStudio.Text;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     class MockTextChange : ITextChange {
         private readonly SnapshotSpan _removed;
         private readonly string _inserted;

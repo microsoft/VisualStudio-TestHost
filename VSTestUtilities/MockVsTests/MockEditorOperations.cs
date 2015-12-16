@@ -17,7 +17,7 @@
 using System;
 using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.Text.Editor.OptionsExtensionMethods;
-using TestUtilities.Mocks;
+using Microsoft.VisualStudioTools.TestUtilities.Mocks;
 
 namespace Microsoft.VisualStudioTools.MockVsTests {
     class MockEditorOperations : IEditorOperations {

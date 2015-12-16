@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.IO;
 using MSBuild = Microsoft.Build.Evaluation;
 
-namespace TestUtilities.SharedProject {
+namespace Microsoft.VisualStudioTools.TestUtilities.SharedProject {
     /// <summary>
     /// Generates a custom msbuild item .
     /// 

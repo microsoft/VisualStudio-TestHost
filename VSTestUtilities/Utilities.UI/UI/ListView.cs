@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Windows.Automation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     public class ListView : AutomationWrapper {
         private List<ListItem> _items;
         private Header _header;

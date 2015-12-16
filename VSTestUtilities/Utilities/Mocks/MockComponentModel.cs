@@ -18,10 +18,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.VisualStudio.ComponentModelHost;
-using Microsoft.VisualStudio.Text.Adornments;
-using Microsoft.VisualStudio.Utilities;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockComponentModel : IComponentModel {
         public readonly Dictionary<Type, List<Lazy<object>>> Extensions = new Dictionary<Type, List<Lazy<object>>>();
 

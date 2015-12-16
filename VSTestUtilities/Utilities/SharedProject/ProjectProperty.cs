@@ -16,7 +16,7 @@
 
 using MSBuild = Microsoft.Build.Evaluation;
 
-namespace TestUtilities.SharedProject {
+namespace Microsoft.VisualStudioTools.TestUtilities.SharedProject {
     public class ProjectProperty : ProjectContentGenerator {
         public readonly string Name, Value;
 

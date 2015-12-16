@@ -18,7 +18,7 @@ using System;
 using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.Language.Intellisense;
 
-namespace PythonToolsMockTests {
+namespace Microsoft.VisualStudioTools.MockVsTests {
     class MockIntellisenseSessionStack : IIntellisenseSessionStack {
         private readonly ObservableCollection<IIntellisenseSession> _stack = new ObservableCollection<IIntellisenseSession>();
 

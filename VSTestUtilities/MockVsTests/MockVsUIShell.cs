@@ -21,7 +21,7 @@ using System.Threading;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TestUtilities;
+using Microsoft.VisualStudioTools.TestUtilities;
 
 namespace Microsoft.VisualStudioTools.MockVsTests {
     class MockVsUIShell : IVsUIShell {

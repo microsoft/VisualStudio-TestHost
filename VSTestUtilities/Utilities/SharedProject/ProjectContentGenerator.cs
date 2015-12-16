@@ -16,7 +16,7 @@
 
 using MSBuild = Microsoft.Build.Evaluation;
 
-namespace TestUtilities.SharedProject {
+namespace Microsoft.VisualStudioTools.TestUtilities.SharedProject {
     /// <summary>
     /// Base class for all generated project items.  Override Generate to create
     /// the item on disk (relative to the MSBuild.Project) and optionally add the

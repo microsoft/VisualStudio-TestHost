@@ -10,8 +10,8 @@
     <ProjectGuid>{E8150EBC-6B62-40BF-BF91-1DC60149B530}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestUtilities.UI</RootNamespace>
-    <AssemblyName>TestUtilities.UI</AssemblyName>
+    <RootNamespace>Microsoft.VisualStudioTools.TestUtilities.UI</RootNamespace>
+    <AssemblyName>Microsoft.VisualStudioTools.TestUtilities.UI.$(VSTarget)</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>

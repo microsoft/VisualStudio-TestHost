@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     class MockNormalizedTextChangeCollection : INormalizedTextChangeCollection {
         private readonly ITextChange[] _changes;
 

@@ -15,10 +15,9 @@
 // permissions and limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockTrackingSpan : ITrackingSpan {
         private readonly int _start, _length;
         private readonly MockTextSnapshot _snapshot;

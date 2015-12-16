@@ -14,12 +14,10 @@
 // See the Apache Version 2.0 License for specific language governing
 // permissions and limitations under the License.
 
-using System;
-using System.Threading;
 using System.Windows.Automation;
 using System.Windows.Input;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     public class SaveDialog : AutomationDialog {
         public SaveDialog(VisualStudioApp app, AutomationElement element)
             : base(app, element) {

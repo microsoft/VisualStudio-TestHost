@@ -17,7 +17,7 @@
 using System;
 using System.Windows.Automation;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     /// <summary>
     /// Wrapps VS's File->New Project dialog.
     /// </summary>

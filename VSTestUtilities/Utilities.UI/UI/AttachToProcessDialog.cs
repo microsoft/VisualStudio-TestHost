@@ -15,11 +15,11 @@
 // permissions and limitations under the License.
 
 using System;
-using System.Windows.Automation;
 using System.Threading;
+using System.Windows.Automation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     public class AttachToProcessDialog : AutomationWrapper {
         private ListView _processList;
         private int _hwnd;

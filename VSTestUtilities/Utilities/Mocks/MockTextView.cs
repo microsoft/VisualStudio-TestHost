@@ -20,7 +20,7 @@ using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Projection;
 using Microsoft.VisualStudio.Utilities;
 
-namespace TestUtilities.Mocks {
+namespace Microsoft.VisualStudioTools.TestUtilities.Mocks {
     public class MockTextView : IWpfTextView, ITextView {
         private readonly ITextBuffer _buffer;
         private readonly PropertyCollection _props = new PropertyCollection();

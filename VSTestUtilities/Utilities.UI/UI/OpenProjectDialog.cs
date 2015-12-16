@@ -17,7 +17,7 @@
 using System;
 using System.Windows.Automation;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     class OpenProjectDialog : AutomationWrapper {
         public OpenProjectDialog(IntPtr hwnd)
             : base(AutomationElement.FromHandle(hwnd)) {

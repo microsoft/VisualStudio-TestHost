@@ -15,12 +15,9 @@
 // permissions and limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using MSBuild = Microsoft.Build.Evaluation;
 
-namespace TestUtilities.SharedProject {
+namespace Microsoft.VisualStudioTools.TestUtilities.SharedProject {
     /// <summary>
     /// Represents a project type.  ProjectType's can be created and exported to MEF by
     /// defining a ProjectTypeDefinition export.

@@ -16,7 +16,7 @@
 
 using System;
 
-namespace TestUtilities {
+namespace Microsoft.VisualStudioTools.TestUtilities {
     public interface IAddExistingItem : IDisposable {
         void OK();
         void Add();

@@ -34,7 +34,7 @@ using Microsoft.VisualStudio.Text.Tagging;
 using Microsoft.VisualStudioTools.VSTestHost;
 using Task = System.Threading.Tasks.Task;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     public class EditorWindow : AutomationWrapper, IEditor {
         private readonly string _filename;
 

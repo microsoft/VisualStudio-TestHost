@@ -24,10 +24,10 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudioTools.TestUtilities.SharedProject;
 using Microsoft.VisualStudioTools.VSTestHost;
-using TestUtilities.SharedProject;
 
-namespace TestUtilities.UI {
+namespace Microsoft.VisualStudioTools.TestUtilities.UI {
     using Thread = System.Threading.Thread;
 
     /// <summary>

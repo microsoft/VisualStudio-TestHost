@@ -17,7 +17,7 @@
 using System.Diagnostics;
 using System.Text;
 
-namespace TestUtilities {
+namespace Microsoft.VisualStudioTools.TestUtilities {
     public class OutputReceiver {
         public readonly StringBuilder Output = new StringBuilder();
 
