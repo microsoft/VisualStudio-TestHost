@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Ensures that if this file changes it forces a rebuild -->
+  <PropertyGroup>                 
+    <MSBuildAllProjects>
+        $(MSBuildAllProjects);$(MSBuildThisFileFullPath)
+    </MSBuildAllProjects>        
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Language>C#</Language>        <!-- Duplicated from the C# targets file -->
+    <Platform Condition="'$(Platform)'==''">x86</Platform>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <!-- This eliminates the warning CA0060, EnvDTE Version=7.0 not found, for VS 10 installations. -->
+    <CodeAnalysisAdditionalOptions> /assemblycomparemode:StrongNameIgnoringVersion</CodeAnalysisAdditionalOptions>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(VSTarget)' == '14.0' ">
+    <DefineConstants>$(DefineConstants);DEV14;DEV14_OR_LATER;DEV12_OR_LATER;DEV11_OR_LATER</DefineConstants>
+    <VSCTDefinitions>DEV14;DEV14_OR_LATER;DEV12_OR_LATER;DEV11_OR_LATER</VSCTDefinitions>
+    <MicrosoftBuildAssemblyVersion>14.0.0.0</MicrosoftBuildAssemblyVersion>
+    <MicrosoftBuildAssemblyVersionSuffix>Core</MicrosoftBuildAssemblyVersionSuffix>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(VSTarget)' == '12.0' ">
+    <DefineConstants>$(DefineConstants);DEV12;DEV12_OR_LATER;DEV11_OR_LATER</DefineConstants>
+    <VSCTDefinitions>DEV12;DEV12_OR_LATER;DEV11_OR_LATER</VSCTDefinitions>
+    <MicrosoftBuildAssemblyVersion>12.0.0.0</MicrosoftBuildAssemblyVersion>
+    <MicrosoftBuildAssemblyVersionSuffix>v12.0</MicrosoftBuildAssemblyVersionSuffix>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(VSTarget)' == '11.0' ">
+    <DefineConstants>$(DefineConstants);DEV11;DEV11_OR_LATER</DefineConstants>
+    <VSCTDefinitions>DEV11;DEV11_OR_LATER</VSCTDefinitions>
+    <MicrosoftBuildAssemblyVersion>4.0.0.0</MicrosoftBuildAssemblyVersion>
+    <MicrosoftBuildAssemblyVersionSuffix>v4.0</MicrosoftBuildAssemblyVersionSuffix>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(VSTarget)' == '10.0' ">
+    <DefineConstants>$(DefineConstants);DEV10</DefineConstants>
+    <VSCTDefinitions>DEV10</VSCTDefinitions>
+    <MicrosoftBuildAssemblyVersion>4.0.0.0</MicrosoftBuildAssemblyVersion>
+    <MicrosoftBuildAssemblyVersionSuffix>v4.0</MicrosoftBuildAssemblyVersionSuffix>
+  </PropertyGroup>
+
+</Project>

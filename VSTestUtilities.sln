@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MockVsTests", "VSTestUtilities\MockVsTests\MockVsTests.csproj", "{A390E1C0-0D90-4A9E-8413-3E959BB07292}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUtilities", "VSTestUtilities\Utilities\TestUtilities.csproj", "{D092D54E-FF29-4D32-9AEE-4EF704C92F67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUtilities.UI", "VSTestUtilities\Utilities.UI\TestUtilities.UI.csproj", "{E8150EBC-6B62-40BF-BF91-1DC60149B530}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A390E1C0-0D90-4A9E-8413-3E959BB07292}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{A390E1C0-0D90-4A9E-8413-3E959BB07292}.Debug|x86.ActiveCfg = Debug|x86
+		{A390E1C0-0D90-4A9E-8413-3E959BB07292}.Debug|x86.Build.0 = Debug|x86
+		{A390E1C0-0D90-4A9E-8413-3E959BB07292}.Release|Any CPU.ActiveCfg = Release|x86
+		{A390E1C0-0D90-4A9E-8413-3E959BB07292}.Release|x86.ActiveCfg = Release|x86
+		{A390E1C0-0D90-4A9E-8413-3E959BB07292}.Release|x86.Build.0 = Release|x86
+		{D092D54E-FF29-4D32-9AEE-4EF704C92F67}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{D092D54E-FF29-4D32-9AEE-4EF704C92F67}.Debug|Any CPU.Build.0 = Debug|x86
+		{D092D54E-FF29-4D32-9AEE-4EF704C92F67}.Debug|x86.ActiveCfg = Debug|x86
+		{D092D54E-FF29-4D32-9AEE-4EF704C92F67}.Debug|x86.Build.0 = Debug|x86
+		{D092D54E-FF29-4D32-9AEE-4EF704C92F67}.Release|Any CPU.ActiveCfg = Release|x86
+		{D092D54E-FF29-4D32-9AEE-4EF704C92F67}.Release|x86.ActiveCfg = Release|x86
+		{D092D54E-FF29-4D32-9AEE-4EF704C92F67}.Release|x86.Build.0 = Release|x86
+		{E8150EBC-6B62-40BF-BF91-1DC60149B530}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{E8150EBC-6B62-40BF-BF91-1DC60149B530}.Debug|Any CPU.Build.0 = Debug|x86
+		{E8150EBC-6B62-40BF-BF91-1DC60149B530}.Debug|x86.ActiveCfg = Debug|x86
+		{E8150EBC-6B62-40BF-BF91-1DC60149B530}.Debug|x86.Build.0 = Debug|x86
+		{E8150EBC-6B62-40BF-BF91-1DC60149B530}.Release|Any CPU.ActiveCfg = Release|x86
+		{E8150EBC-6B62-40BF-BF91-1DC60149B530}.Release|x86.ActiveCfg = Release|x86
+		{E8150EBC-6B62-40BF-BF91-1DC60149B530}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
