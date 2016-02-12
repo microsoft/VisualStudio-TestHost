@@ -5,6 +5,8 @@ obj/
 TestResults/
 *.log
 *.msi
+*.nupkg
+VSTestUtilities/BuildOutput/
 
 # Per-user files created by IDEs
 *.suo

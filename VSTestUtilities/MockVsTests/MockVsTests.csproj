@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{A390E1C0-0D90-4A9E-8413-3E959BB07292}</ProjectGuid>
+    <ProjectGuid>{706170B1-5DC1-4D70-896A-1D03B2BAADC0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Microsoft.VisualStudioTools.MockVsTests</RootNamespace>
@@ -152,7 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utilities\TestUtilities.csproj">
-      <Project>{d092d54e-ff29-4d32-9aee-4ef704c92f67}</Project>
+      <Project>{9220AD35-2A6A-4494-9A0E-3FCFE4B56755}</Project>
       <Name>TestUtilities</Name>
     </ProjectReference>
   </ItemGroup>

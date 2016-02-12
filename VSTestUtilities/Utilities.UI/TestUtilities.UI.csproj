@@ -7,7 +7,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E8150EBC-6B62-40BF-BF91-1DC60149B530}</ProjectGuid>
+    <ProjectGuid>{ACFCC67D-30E7-4CA8-AFFF-77FB87BD3F68}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Microsoft.VisualStudioTools.TestUtilities</RootNamespace>
@@ -28,7 +28,6 @@
     <Reference Include="Accessibility" />
     <Reference Include="envdte, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
-      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Common Files\Microsoft Shared\MSEnv\PublicAssemblies\envdte.dll</HintPath>
     </Reference>
     <Reference Include="envdte80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -138,11 +137,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utilities\TestUtilities.csproj">
-      <Project>{D092D54E-FF29-4D32-9AEE-4EF704C92F67}</Project>
+      <Project>{9220AD35-2A6A-4494-9A0E-3FCFE4B56755}</Project>
       <Name>TestUtilities</Name>
     </ProjectReference>
     <ProjectReference Include="..\MockVsTests\MockVsTests.csproj">
-      <Project>{a390e1c0-0d90-4a9e-8413-3e959bb07292}</Project>
+      <Project>{706170B1-5DC1-4D70-896A-1D03B2BAADC0}</Project>
       <Name>MockVsTests</Name>
     </ProjectReference>
   </ItemGroup>
