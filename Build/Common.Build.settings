@@ -186,6 +186,6 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <CodeAnalysisRuleSet>$(BuildRoot)\Build\xTVS.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)\xTVS.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 </Project>
