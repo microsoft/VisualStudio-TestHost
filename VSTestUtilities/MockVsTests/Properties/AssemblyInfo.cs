@@ -22,5 +22,5 @@ using System.Resources;
 [assembly: AssemblyDescription("")]
 
 [assembly: ComVisible(false)]
-[assembly: Guid("B8709A0D-B0B3-4AED-8C31-81F86C5A211B")]
+[assembly: Guid("4739A7BF-A80E-46E4-972F-D95E6BF62907")]
 [assembly: NeutralResourcesLanguage("en-US")]
