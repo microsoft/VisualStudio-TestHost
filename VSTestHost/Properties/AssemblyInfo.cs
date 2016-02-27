@@ -29,18 +29,22 @@ using System.Runtime.InteropServices;
 [assembly: CLSCompliant(false)]
 [assembly: NeutralResourcesLanguage("en-US")]
 
-[assembly: AssemblyVersion(AssemblyVersionInfo.VSVersion + ".0.2.0")]
-[assembly: AssemblyFileVersion(AssemblyVersionInfo.VSVersion + ".0.2.0")]
+[assembly: AssemblyVersion(AssemblyVersionInfo.VSVersion + ".0.3.0")]
+[assembly: AssemblyFileVersion(AssemblyVersionInfo.VSVersion + ".0.3.0")]
 
 class AssemblyVersionInfo {
-#if VS10
+#if DEV10
     public const string VSVersion = "10";
-#elif VS11
+#elif DEV11
     public const string VSVersion = "11";
-#elif VS12
+#elif DEV12
     public const string VSVersion = "12";
-#elif VS14
+#elif DEV14
     public const string VSVersion = "14";
+#elif DEV15
+    public const string VSVersion = "15";
+#else
+#error Unrecognized VS version
 #endif
 }
 

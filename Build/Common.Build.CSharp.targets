@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+  <!-- If any references packages have been installed, use them. -->
+  <PropertyGroup>
+    <ResolveAssemblyReferencesDependsOn>$(ResolveAssemblyReferencesDependsOn);_AddVSTHReferences</ResolveAssemblyReferencesDependsOn>
+  </PropertyGroup>
+  <Target Name="_AddVSTHReferences">
+    <ItemGroup>
+      <_ReferenceDirectories Include="$(BuildRoot)packages\**\VSTestHost.References.$(VSTarget)*.nupkg" />
+    </ItemGroup>
+    <PropertyGroup>
+      <AssemblySearchPaths>@(_ReferenceDirectories->'%(RootDir)%(Directory)lib');$(AssemblySearchPaths);$(DevEnvDir)PrivateAssemblies</AssemblySearchPaths>
+    </PropertyGroup>
+  </Target>
+</Project>

@@ -51,9 +51,9 @@ if ($sign -or $mocksign) {
     $approvers = "smortaz", "dinov", "stevdo", "pminaev", "gilbertw", "huvalo", "sitani", "jinglou", "crwilcox"
     $approvers = @($approvers | Where-Object {$_ -ne $env:USERNAME})
 
-    $dllfiles = @(Get-ChildItem "$projectDir\VSTestHost\bin\Release_*\Microsoft.VisualStudioTools.VSTestHost.*.dll" | %{ @{path=$_.FullName; name=$_.Name} })
-    $destdir = "$outdir\VSTestHost\bin\SignedBinaries"
-    $dlljob = begin_sign_files $dllfiles $destdir $approvers "VS Test Host" "http://pytools.codeplex.com" `
+    $dllfiles = @(Get-ChildItem "$projectDir\BuildOutput\Release*\raw\Microsoft.VisualStudioTools.VSTestHost.*.dll" | %{ @{path=$_.FullName; name=$_.Name} })
+    $destdir = "$projectDir\BuildOutput\SignedBinaries"
+    $dlljob = begin_sign_files $dllfiles $destdir $approvers "VS Test Host" "https://github.com/Microsoft/VisualStudio-TestHost" `
                                "VS Test Host" "Visual Studio; test" "authenticode;strongname"
 
     end_sign_files $dlljob
@@ -74,8 +74,8 @@ if ($sign -or $mocksign) {
     
     Write-Output "Submitting MSI signing job"
     $msifiles = @(@{path="$projectDir\Installer\bin\Release\VSTestHost.msi"; name="VSTestHost.msi"})
-    $msijob = begin_sign_files $msifiles $outdir $approvers "VS Test Host Installer" "http://pytools.codeplex.com" `
-                               "VS Test Host" "Visual Studio; test" "authenticode"
+    $msijob = begin_sign_files $msifiles $outdir $approvers "VS Test Host Installer" "https://github.com/Microsoft/VisualStudio-TestHost" `
+                               "VS Test Host" "Visual Studio; test" "msi"
     
     end_sign_files $msijob
 } else {
