@@ -14,4 +14,6 @@
       <AssemblySearchPaths>@(_ReferenceDirectories->'%(RootDir)%(Directory)lib');$(AssemblySearchPaths);$(DevEnvDir)PrivateAssemblies</AssemblySearchPaths>
     </PropertyGroup>
   </Target>
+
+  <Import Project="$(BuildRoot)\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.targets" Condition="Exists('$(BuildRoot)\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.targets')" />
 </Project>
