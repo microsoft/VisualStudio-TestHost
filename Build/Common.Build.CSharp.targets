@@ -15,5 +15,12 @@
     </PropertyGroup>
   </Target>
 
+  <ItemGroup>
+    <FilesToSign Include="$(TargetPath)">
+      <Authenticode>Microsoft</Authenticode>
+      <StrongName>StrongName</StrongName>
+    </FilesToSign>
+  </ItemGroup>
+
   <Import Project="$(BuildRoot)\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.targets" Condition="Exists('$(BuildRoot)\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.targets')" />
 </Project>
