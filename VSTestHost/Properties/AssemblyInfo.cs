@@ -29,8 +29,8 @@ using System.Runtime.InteropServices;
 [assembly: CLSCompliant(false)]
 [assembly: NeutralResourcesLanguage("en-US")]
 
-[assembly: AssemblyVersion(AssemblyVersionInfo.VSVersion + ".0.3.0")]
-[assembly: AssemblyFileVersion(AssemblyVersionInfo.VSVersion + ".0.3.0")]
+[assembly: AssemblyVersion(AssemblyVersionInfo.VSVersion + ".0.4.0")]
+[assembly: AssemblyFileVersion(AssemblyVersionInfo.VSVersion + ".0.4.0")]
 
 class AssemblyVersionInfo {
 #if DEV10

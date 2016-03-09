@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.VisualStudioTools.VSTestHost.$VSTarget$</id>
+    <version>1.0.4</version>
+    <authors>Microsoft Corporation</authors>
+    <owners>Microsoft Corporation</owners>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/Microsoft/VisualStudio-TestHost</projectUrl>
+    <description>Allows UI testing of the Visual Studio IDE.</description>
+    <summary>Allows UI testing of the Visual Studio IDE.</summary>
+  </metadata>
+  <files>
+    <file src="..\BuildOutput\Release$VSTarget$\raw\Microsoft.VisualStudioTools.VSTestHost.$VSTarget$.dll" target="lib\net45"/>
+  </files>
+</package>
