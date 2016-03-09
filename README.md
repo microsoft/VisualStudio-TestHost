@@ -40,7 +40,7 @@ These settings should be specified in a `.testsettings` file or with the `TestPr
 | Setting | Description | Values |
 | --- | --- | --- |
 | VSApplication | The registry key name | "VisualStudio", "WDExpress", "VWDExpress", "Mock" |
-| VSExecutable  | The executable name | "devenv", "wdexpress", "vwdexpress" |
+| VSExecutable  | The executable name or path | "devenv", "wdexpress", "vwdexpress" |
 | VSVersion     | The version number | "11.0", "12.0", "14.0" or blank (match tester) |
 | VSHive | The hive name | "Exp" or "Default" |
 | VSLaunchTimeoutInSeconds | The number of seconds to wait for launch | Any number, or blank (30s) |

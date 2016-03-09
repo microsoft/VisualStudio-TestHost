@@ -2,6 +2,8 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\WiX.3.9.2.1\build\wix.props" Condition="Exists('..\packages\WiX.3.9.2.1\build\wix.props')" />
   <PropertyGroup>
+    <BuildRoot>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.root))</BuildRoot>
+    <BuildRoot Condition="!HasTrailingSlash($(BuildRoot))">$(BuildRoot)\</BuildRoot>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>3.8</ProductVersion>
@@ -11,7 +13,7 @@
     <OutputType>Package</OutputType>
     <DefineSolutionProperties>false</DefineSolutionProperties>
     <VSTestHostTarget Condition="'$(VSTestHostTarget)' == ''">Build</VSTestHostTarget>
-    <VSTargetVersions Condition="'$(VSTargetVersions)' == ''">11;12;14</VSTargetVersions>
+    <VSTargetVersions Condition="'$(VSTargetVersions)' == ''">11;12;14;15</VSTargetVersions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -33,10 +35,10 @@
     </ItemGroup>
     <!-- No signed binaries provided, so rebuild VSTestHost from source. -->
     <ItemGroup Condition="'$(VSTestHostSignedBinariesPath)' == ''">
-      <_VSTestHost Include="@(_VSVersions->'..\VSTestHost\bin\$(Configuration)_%(Identity).0\Microsoft.VisualStudioTools.VSTestHost.%(Identity).0.dll')">
-        <PkgDefFullPath>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)\..\VSTestHost\bin\$(Configuration)_%(Identity).0\Microsoft.VisualStudioTools.VSTestHost.%(Identity).0.pkgdef'))</PkgDefFullPath>
+      <_VSTestHost Include="@(_VSVersions->'$(BuildRoot)BuildOutput\$(Configuration)%(Identity).0\raw\Microsoft.VisualStudioTools.VSTestHost.%(Identity).0.dll')">
+        <PkgDefFullPath>$(BuildRoot)BuildOutput\$(Configuration)%(Identity).0\raw\Microsoft.VisualStudioTools.VSTestHost.%(Identity).0.pkgdef</PkgDefFullPath>
         <Project>$(MSBuildThisFileDirectory)\..\VSTestHost\VSTestHost.csproj</Project>
-        <Properties>Platform=AnyCPU;Configuration=$(Configuration);VisualStudioVersion=%(Identity).0;DeployExtension=false</Properties>
+        <Properties>Platform=AnyCPU;Configuration=$(Configuration);DeployExtension=false;VSTarget=%(Identity).0</Properties>
         <VSVersion>%(Identity)</VSVersion>
       </_VSTestHost>
     </ItemGroup>
@@ -44,7 +46,7 @@
     <!-- We have signed binaries, so use those instead of rebuilding. -->
     <ItemGroup Condition="'$(VSTestHostSignedBinariesPath)' != ''">
       <_VSTestHost Include="@(_VSVersions->'$(VSTestHostSignedBinariesPath)\Microsoft.VisualStudioTools.VSTestHost.%(Identity).0.dll')">
-        <PkgDefFullPath>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)\..\VSTestHost\bin\$(Configuration)_%(Identity).0\Microsoft.VisualStudioTools.VSTestHost.%(Identity).0.pkgdef'))</PkgDefFullPath>
+        <PkgDefFullPath>$(BuildRoot)BuildOutput\$(Configuration)%(Identity).0\raw\Microsoft.VisualStudioTools.VSTestHost.%(Identity).0.pkgdef</PkgDefFullPath>
         <VSVersion>%(Identity)</VSVersion>
       </_VSTestHost>
     </ItemGroup>

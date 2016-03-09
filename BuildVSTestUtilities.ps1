@@ -18,10 +18,10 @@ if (-not $outdir) {
 }
 Write-Output "Writing output MSIs to $outdir"
 
-Remove-Item $projectdir\VSTestUtilities\BuildOutput\*.nupkg
+Remove-Item $projectdir\BuildOutput\*.nupkg
 
 $vsVersions = @(
-    @{v="15.0"; year="15"},
+    @{v="15.0"; year="vNext"},
     @{v="14.0"; year="2015"},
     @{v="12.0"; year="2013"},
     @{v="11.0"; year="2012"}
@@ -66,8 +66,11 @@ if ($sign -or $mocksign) {
 
     $dlljobs = @()
     foreach($ver in $vsVersions) {
-        $dllfiles = @(Get-ChildItem "$projectDir\VSTestUtilities\BuildOutput\Release$($ver.v)\raw\*.dll" | %{ @{path=$_.FullName; name=$_.Name} })
-        $destdir = "$outdir\VSTestUtilities\BuildOutput\Release$($ver.v)\signed"
+        $dllfiles = @(
+            Get-ChildItem "$projectDir\BuildOutput\Release$($ver.v)\raw\Microsoft.VisualStudioTools.TestUtilities*.dll", "$projectDir\BuildOutput\Release$($ver.v)\raw\Microsoft.VisualStudioTools.MockVsTests*.dll" `
+            | %{ @{path=$_.FullName; name=$_.Name} }
+        )
+        $destdir = "$outdir\BuildOutput\Release$($ver.v)\signed"
         $dlljobs += begin_sign_files $dllfiles $destdir $approvers "VS Test Host $($ver.year)" `
             "https://github.com/Microsoft/VisualStudio-TestHost" `
             "VS Test Host" "Visual Studio; test" "authenticode;strongname"
@@ -80,7 +83,7 @@ if ($sign -or $mocksign) {
 foreach($ver in $vsVersions) {
     Build\nuget pack `
         "$projectDir\VSTestUtilities\VSTestUtilities.nuspec" `
-        /OutputDirectory (mkdir "$projectDir\VSTestUtilities\BuildOutput\Release$($ver.v)\pkg" -Force) `
+        /OutputDirectory (mkdir "$projectDir\BuildOutput\Release$($ver.v)\pkg" -Force) `
         /Prop VSTarget="$($ver.v)" `
         /Prop VSVersion="$($ver.year)" `
         /Prop Source="$dllsource"
@@ -94,14 +97,14 @@ if ($sign -or $mocksign) {
     Write-Output "Submitting nupkg signing job"
     $pkgjobs = @()
     foreach($ver in $vsVersions) {
-        $pkgfiles = @(Get-ChildItem "$projectDir\VSTestUtilities\BuildOutput\Release$($ver.v)\pkg\*.nupkg" | %{ @{path=$_.FullName; name=$_.Name } })
+        $pkgfiles = @(Get-ChildItem "$projectDir\BuildOutput\Release$($ver.v)\pkg\*.nupkg" | %{ @{path=$_.FullName; name=$_.Name } })
         $pkgjobs += begin_sign_files $pkgfiles $outdir $approvers "VS Test Utilities Nuget Packages" `
             "https://github.com/Microsoft/VisualStudio-TestHost" `
-            "VS Test Host" "Visual Studio; test" "authenticode"
+            "VS Test Host" "Visual Studio; test" "vsix"
     }
     end_sign_files $pkgjobs
 } else {
-    Copy-Item "$projectDir\VSTestUtilities\BuildOutput\Release*\pkg\*.nupkg" $outdir
+    Copy-Item "$projectDir\BuildOutput\Release*\pkg\*.nupkg" $outdir
 }
 
 Write-Output ""

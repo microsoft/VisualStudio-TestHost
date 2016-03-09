@@ -14,8 +14,8 @@
     <summary>Test utilities for automating Visual Studio $VSVersion$ and higher</summary>
   </metadata>
   <files>
-    <file src="BuildOutput\Release$VSTarget$\$Source$\Microsoft.VisualStudioTools.MockVsTests.$VSTarget$.dll" target="lib\net45"/>
-    <file src="BuildOutput\Release$VSTarget$\$Source$\Microsoft.VisualStudioTools.TestUtilities.$VSTarget$.dll" target="lib\net45"/>
-    <file src="BuildOutput\Release$VSTarget$\$Source$\Microsoft.VisualStudioTools.TestUtilities.UI.$VSTarget$.dll" target="lib\net45"/>
+    <file src="..\BuildOutput\Release$VSTarget$\$Source$\Microsoft.VisualStudioTools.MockVsTests.$VSTarget$.dll" target="lib\net45"/>
+    <file src="..\BuildOutput\Release$VSTarget$\$Source$\Microsoft.VisualStudioTools.TestUtilities.$VSTarget$.dll" target="lib\net45"/>
+    <file src="..\BuildOutput\Release$VSTarget$\$Source$\Microsoft.VisualStudioTools.TestUtilities.UI.$VSTarget$.dll" target="lib\net45"/>
   </files>
 </package>

@@ -63,6 +63,20 @@
     </Feature>
     <?endif?>
 
+    <?ifdef VSTestHostDLLSource14 ?>
+    <Feature Id="VSTestHost_15" Title="Visual Studio vNext Support">
+      <Condition Level="0">NOT VS15TARGET</Condition>
+      <Component Id="VSTestHost_15" Directory="GAC" Guid="{143379F2-0ED8-4EA2-87DA-AE604C7DC59D}">
+        <File Name="$(var.VSTestHostName15).dll" Source="$(var.VSTestHostDLLSource15)" KeyPath="yes" Assembly=".net" />
+      </Component>
+      <Component Id="Pkgdef_15" Directory="VS15Target" Guid="{A84C4FA7-7CBD-4CF7-AA28-B296D931D50C}">
+        <File Name="$(var.VSTestHostName15).pkgdef" Source="$(var.VSTestHostPkgdefSource15)" KeyPath="yes" />
+      </Component>
+
+      <ComponentRef Id="Host_VisualStudio_15" />
+    </Feature>
+    <?endif?>
+
     <InstallExecuteSequence>
       <InstallExecute After="PublishProduct" />
     </InstallExecuteSequence>

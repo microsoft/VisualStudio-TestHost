@@ -71,14 +71,19 @@ namespace Microsoft.VisualStudioTools.VSTestHost.Internal {
             string hive,
             CancellationToken cancel
         ) {
-            var installDir = GetInstallDir(application, version, hive);
-            if (!Directory.Exists(installDir)) {
-                throw new DirectoryNotFoundException("Cannot find Visual Studio install path");
-            }
+            string devenv;
+            if (Path.IsPathRooted(executable)) {
+                devenv = executable;
+            } else {
+                var installDir = GetInstallDir(application, version, hive);
+                if (!Directory.Exists(installDir)) {
+                    throw new DirectoryNotFoundException("Cannot find Visual Studio install path");
+                }
 
-            var devenv = Path.Combine(installDir, executable);
-            if (!File.Exists(devenv)) {
-                throw new FileNotFoundException("Cannot find Visual Studio executable");
+                devenv = Path.Combine(installDir, executable);
+                if (!File.Exists(devenv)) {
+                    throw new FileNotFoundException("Cannot find Visual Studio executable");
+                }
             }
 
             var psi = new ProcessStartInfo(devenv);

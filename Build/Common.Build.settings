@@ -8,6 +8,11 @@
     </MSBuildAllProjects>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <BuildRoot>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.root))</BuildRoot>
+  </PropertyGroup>
+
+  <Import Project="$(BuildRoot)\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.props" Condition="Exists('$(BuildRoot)\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.props')" />
 
   <PropertyGroup>
     <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
