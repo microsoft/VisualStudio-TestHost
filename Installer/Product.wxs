@@ -139,7 +139,7 @@
   <?endif?>
   
   <?define VSHiveKey=SOFTWARE\Microsoft\$(var.VSSKU)\$(var.VSVersion).0?>
-  <?define AssemblyName=Microsoft.VisualStudioTools.VSTestHost.$(var.VSVersion).0, Version=$(var.VSVersion).0.2.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A?>
+  <?define AssemblyName=Microsoft.VisualStudioTools.VSTestHost.$(var.VSVersion).0, Version=$(var.VSVersion).0.4.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A?>
 
   <!-- 
   This component is the registration to launch unit tests
