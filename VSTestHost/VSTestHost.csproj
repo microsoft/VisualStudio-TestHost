@@ -44,8 +44,6 @@
     <CopyVsixManifestToOutput>false</CopyVsixManifestToOutput>
     <DeployVSTemplates>false</DeployVSTemplates>
     <DeployExtension Condition="'$(VSTarget)' != '$(VisualStudioVersion)'">false</DeployExtension>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <DevEnvDir>$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\Software\Microsoft\VisualStudio\$(VisualStudioVersion)', 'InstallDir', null, RegistryView.Registry32))\</DevEnvDir>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
