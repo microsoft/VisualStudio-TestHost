@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" TreatAsLocalProperty="BuildOutputRoot;BuildRoot;OutputPathSuffix;OutputPath;IntermediateOutputPath">
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" TreatAsLocalProperty="BuildOutputRoot;BuildRoot;OutputPathSuffix;OutputPath;IntermediateOutputPath">
 
   <!-- Ensures that if this file changes it forces a rebuild -->
   <PropertyGroup>
@@ -29,17 +29,17 @@
     <VSTargetName Condition="'$(VSTarget)' == '11.0'">2012</VSTargetName>
     <VSTargetName Condition="'$(VSTarget)' == '10.0'">2010</VSTargetName>
     
-    <BuildNumber Condition="'$(BuildNumber)' == ''">1000.00</BuildNumber>
+    <BuildNumber Condition="'$(BuildNumber)' == ''">0.0</BuildNumber>
     <!--
     The version number that will identify a specific build. This appears in
     Programs and Features, Extension Manager, and Help About.
     -->
-    <FileVersionPrefix Condition="$(FileVersionPrefix) == ''">3.0</FileVersionPrefix>
+    <FileVersionPrefix Condition="$(FileVersionPrefix) == ''">1.0</FileVersionPrefix>
     <FileVersion Condition="$(FileVersion) == ''">$(FileVersionPrefix).$(BuildNumber)</FileVersion>
     <!--
     The version number that will identify assembly compatibility.
     -->
-    <StableVersionPrefix Condition="$(StableVersionPrefix) == ''">3.0.0</StableVersionPrefix>
+    <StableVersionPrefix Condition="$(StableVersionPrefix) == ''">1.0.4</StableVersionPrefix>
     <StableVersion Condition="$(StableVersion) == ''">$(StableVersionPrefix).$(VSTargetName)</StableVersion>
     
     <!-- When true, increases build restrictions to ensure complete public releases -->
