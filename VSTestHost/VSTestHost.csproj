@@ -23,6 +23,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <OutputPathSuffix>binaries</OutputPathSuffix>
   </PropertyGroup>
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.root))\Build\Common.Build.settings" />
   <Import Project="$(TargetsPath)\Common.Build.CSharp.settings" />
@@ -139,12 +140,12 @@
   -->
   <Target Name="CopyToPrivateAssemblies"
           BeforeTargets="DeployVsixExtensionFiles"
-          Condition="'$(Configuration)' == 'Debug' and '$(VSTarget)' == '$(VisualStudioVersion)'">
+          Condition="'$(Configuration)' == 'Debug' and '$(VSTarget)' == '$(VisualStudioVersion)' and $(DeployExtension)">
     <Copy SourceFiles="$(TargetPath);$(OutputPath)\$(TargetName).pdb" DestinationFolder="$(DevEnvDir)PrivateAssemblies" />
   </Target>
   <Target Name="CleanPrivateAssemblies"
           BeforeTargets="CleanDeployedVsixExtensionFiles"
-          Condition="'$(Configuration)' == 'Debug' and '$(VSTarget)' == '$(VisualStudioVersion)'">
+          Condition="'$(Configuration)' == 'Debug' and '$(VSTarget)' == '$(VisualStudioVersion)' and $(DeployExtension)">
     <Delete Files="$(DevEnvDir)PrivateAssemblies\$(TargetName).dll;$(DevEnvDir)PrivateAssemblies\$(TargetName).pdb" />
   </Target>
 </Project>
