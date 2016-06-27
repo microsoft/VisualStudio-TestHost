@@ -21,6 +21,9 @@ if (-not $uninstall) {
     
     copy -Recurse -Force $vsdrop\engine ${env:Temp}\engine
     
+    mkdir -Force "HKLM:\Software\WOW6432Node\Microsoft\VisualStudio\15.0\EnterpriseTools\QualityTools\HostAdapters\VSTestHost" | Out-Null
+    mkdir -Force "HKLM:\Software\WOW6432Node\Microsoft\VisualStudio\15.0\EnterpriseTools\QualityTools\HostAdapters\VSTestHost\SupportedTestTypes" | Out-Null
+    mkdir -Force "HKLM:\Software\WOW6432Node\Microsoft\VisualStudio\15.0\EnterpriseTools\QualityTools\TestTypes\{13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b}\SupportedHostAdapters" | Out-Null
     Set-ItemProperty "HKLM:\Software\WOW6432Node\Microsoft\VisualStudio\15.0\EnterpriseTools\QualityTools\HostAdapters\VSTestHost" -Name "EditorType" -Value "Microsoft.VisualStudioTools.VSTestHost.TesterTestControl, Microsoft.VisualStudioTools.VSTestHost.15.0, Version=15.0.4.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"
     Set-ItemProperty "HKLM:\Software\WOW6432Node\Microsoft\VisualStudio\15.0\EnterpriseTools\QualityTools\HostAdapters\VSTestHost" -Name "Type" -Value "Microsoft.VisualStudioTools.VSTestHost.TesterTestAdapter, Microsoft.VisualStudioTools.VSTestHost.15.0, Version=15.0.4.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"
     Set-ItemProperty "HKLM:\Software\WOW6432Node\Microsoft\VisualStudio\15.0\EnterpriseTools\QualityTools\HostAdapters\VSTestHost\SupportedTestTypes" -Name "{13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b}" -Value "Unit Test"

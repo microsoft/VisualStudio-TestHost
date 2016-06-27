@@ -1,5 +1,5 @@
 use vs
-package name=Microsoft.VSTestHost version=$(FileVersion)
+package name=Microsoft.VisualStudioTools.VSTestHost version=$(FileVersion)
 
 folder "InstallDir:\Common7\IDE\PublicAssemblies"
   file source="$(BuildSource)Microsoft.VisualStudioTools.VSTestHost.$(VSTarget).dll"
