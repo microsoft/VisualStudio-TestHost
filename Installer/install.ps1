@@ -42,16 +42,9 @@ if (-not $uninstall) {
     Set-ItemProperty HKLM:$regsupporthost -Name "VSTestHost" -Value "VS Test Host Adapter";
     
     $mstest = [xml](gc "$vs\Common7\IDE\MSTest.exe.config");
-    if ("Microsoft.Build" -notin $mstest.configuration.runtime.assemblyBinding.dependentAssembly.assemblyIdentity.name) {
+    if (-not $mstest.configuration.runtime.assemblyBinding.probing.privatePath.Contains("CommonExtensions\Microsoft\Editor")) {
         "Adding necessary entries to mstest.exe.config"
-        foreach ($n in @("Microsoft.Build", "Microsoft.Build.Framework")) {
-            $e = $mstest.ImportNode(([xml]"<dependentAssembly  xmlns=""urn:schemas-microsoft-com:asm.v1"">
-    <assemblyIdentity name=""$n"" publicKeyToken=""b03f5f7f11d50a3a"" culture=""neutral""/>
-    <bindingRedirect oldVersion=""10.0.0.0-15.0.0.0"" newVersion=""15.1.0.0""/>
-    <codeBase version=""15.1.0.0"" href=""..\..\MSBuild\15.0\Bin\$n.dll"" />
-</dependentAssembly>").dependentAssembly, $true);
-            $mstest.configuration.runtime.assemblyBinding.AppendChild($e) | Out-Null;
-        }
+        $mstest.configuration.runtime.assemblyBinding.probing.privatePath += ";..\..\MSBuild\15.0\Bin;CommonExtensions\Microsoft\Editor";
         $mstest.Save("$vs\Common7\IDE\MSTest.exe.config");
     }
     
