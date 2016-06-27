@@ -21,13 +21,39 @@ if (-not $uninstall) {
     
     copy -Recurse -Force $vsdrop\engine ${env:Temp}\engine
     
-    mkdir -Force "HKLM:\Software\WOW6432Node\Microsoft\VisualStudio\15.0\EnterpriseTools\QualityTools\HostAdapters\VSTestHost" | Out-Null
-    mkdir -Force "HKLM:\Software\WOW6432Node\Microsoft\VisualStudio\15.0\EnterpriseTools\QualityTools\HostAdapters\VSTestHost\SupportedTestTypes" | Out-Null
-    mkdir -Force "HKLM:\Software\WOW6432Node\Microsoft\VisualStudio\15.0\EnterpriseTools\QualityTools\TestTypes\{13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b}\SupportedHostAdapters" | Out-Null
-    Set-ItemProperty "HKLM:\Software\WOW6432Node\Microsoft\VisualStudio\15.0\EnterpriseTools\QualityTools\HostAdapters\VSTestHost" -Name "EditorType" -Value "Microsoft.VisualStudioTools.VSTestHost.TesterTestControl, Microsoft.VisualStudioTools.VSTestHost.15.0, Version=15.0.4.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"
-    Set-ItemProperty "HKLM:\Software\WOW6432Node\Microsoft\VisualStudio\15.0\EnterpriseTools\QualityTools\HostAdapters\VSTestHost" -Name "Type" -Value "Microsoft.VisualStudioTools.VSTestHost.TesterTestAdapter, Microsoft.VisualStudioTools.VSTestHost.15.0, Version=15.0.4.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"
-    Set-ItemProperty "HKLM:\Software\WOW6432Node\Microsoft\VisualStudio\15.0\EnterpriseTools\QualityTools\HostAdapters\VSTestHost\SupportedTestTypes" -Name "{13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b}" -Value "Unit Test"
-    Set-ItemProperty "HKLM:\Software\WOW6432Node\Microsoft\VisualStudio\15.0\EnterpriseTools\QualityTools\TestTypes\{13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b}\SupportedHostAdapters" -Name "VSTestHost" -Value "VS Test Host Adapter"
+    "Enabling use of mstest.exe"
+    $regroot = mkdir -Force "HKLM:\Software\WOW6432Node\Microsoft\VisualStudio\15.0\EnterpriseTools\QualityTools\HostAdapters\VSTestHost";
+    $regsupporttest = mkdir -Force "HKLM:$regroot\SupportedTestTypes";
+    $regunittest = mkdir -Force "HKLM:\Software\WOW6432Node\Microsoft\VisualStudio\15.0\EnterpriseTools\QualityTools\TestTypes\{13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b}";
+    $regextensions = mkdir -Force "HKLM:$regunittest\Extensions";
+    $regsupporthost = mkdir -Force "HKLM:$regunittest\SupportedHostAdapters";
+    Set-ItemProperty HKLM:$regroot -Name "EditorType" -Value "Microsoft.VisualStudioTools.VSTestHost.TesterTestControl, Microsoft.VisualStudioTools.VSTestHost.15.0, Version=15.0.4.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A";
+    Set-ItemProperty HKLM:$regroot -Name "Type" -Value "Microsoft.VisualStudioTools.VSTestHost.TesterTestAdapter, Microsoft.VisualStudioTools.VSTestHost.15.0, Version=15.0.4.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A";
+    Set-ItemProperty HKLM:$regsupporttest -Name "{13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b}" -Value "Unit Test";
+    Set-ItemProperty HKLM:$regunittest -Name "ServiceType" -Value "Microsoft.VisualStudio.TestTools.TestTypes.Unit.SUnitTestService, Microsoft.VisualStudio.QualityTools.Vsip, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a";
+    Set-ItemProperty HKLM:$regunittest -Name "NameId" -Value "#212";
+    Set-ItemProperty HKLM:$regunittest -Name "SatelliteBasePath" -Value "%ExecutingAssemblyDirectory%";
+    Set-ItemProperty HKLM:$regunittest -Name "SatelliteDllName" -Value "Microsoft.VisualStudio.QualityTools.Tips.TuipPackageUI.dll";
+    Set-ItemProperty HKLM:$regunittest -Name "VsEditor" -Value "{00000000-0000-0000-0000-000000000000}";
+    Set-ItemProperty HKLM:$regunittest -Name "TipProvider" -Value "Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestTip, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Tip, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a";
+    Set-ItemProperty HKLM:$regunittest -Name "RunConfigurationEditorType" -Value "Microsoft.VisualStudio.TestTools.Tips.TuipPackage.UnitTestRunConfigControl, Microsoft.VisualStudio.QualityTools.Tips.TuipPackage, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a";
+    Set-ItemProperty HKLM:$regextensions -Name ".dll" -Value 215;
+    Set-ItemProperty HKLM:$regextensions -Name ".exe" -Value 215;
+    Set-ItemProperty HKLM:$regsupporthost -Name "VSTestHost" -Value "VS Test Host Adapter";
+    
+    $mstest = [xml](gc "$vs\Common7\IDE\MSTest.exe.config");
+    if ("Microsoft.Build" -notin $mstest.configuration.runtime.assemblyBinding.dependentAssembly.assemblyIdentity.name) {
+        "Adding necessary entries to mstest.exe.config"
+        foreach ($n in @("Microsoft.Build", "Microsoft.Build.Framework")) {
+            $e = $mstest.ImportNode(([xml]"<dependentAssembly  xmlns=""urn:schemas-microsoft-com:asm.v1"">
+    <assemblyIdentity name=""$n"" publicKeyToken=""b03f5f7f11d50a3a"" culture=""neutral""/>
+    <bindingRedirect oldVersion=""10.0.0.0-15.0.0.0"" newVersion=""15.1.0.0""/>
+    <codeBase version=""15.1.0.0"" href=""..\..\MSBuild\15.0\Bin\$n.dll"" />
+</dependentAssembly>").dependentAssembly, $true);
+            $mstest.configuration.runtime.assemblyBinding.AppendChild($e) | Out-Null;
+        }
+        $mstest.Save("$vs\Common7\IDE\MSTest.exe.config");
+    }
     
     & "${env:Temp}\engine\setup.exe" install --catalog "$source\Microsoft.VisualStudioTools.VSTestHost_Sideload.vsman" --installdir "$vs" --layoutdir "$source"
     # devenv /setup is run by setup.exe
