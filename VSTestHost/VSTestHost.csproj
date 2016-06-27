@@ -139,12 +139,12 @@
   -->
   <Target Name="CopyToPrivateAssemblies"
           BeforeTargets="DeployVsixExtensionFiles"
-          Condition="'$(Configuration)' == 'Debug' and '$(VSTarget)' == '$(VisualStudioVersion)' and $(DeployExtension)">
+          Condition="'$(VSTarget)' == '$(VisualStudioVersion)' and $(DeployExtension)">
     <Copy SourceFiles="$(TargetPath);$(OutputPath)\$(TargetName).pdb" DestinationFolder="$(DevEnvDir)PrivateAssemblies" />
   </Target>
   <Target Name="CleanPrivateAssemblies"
           BeforeTargets="CleanDeployedVsixExtensionFiles"
-          Condition="'$(Configuration)' == 'Debug' and '$(VSTarget)' == '$(VisualStudioVersion)' and $(DeployExtension)">
+          Condition="'$(VSTarget)' == '$(VisualStudioVersion)' and $(DeployExtension)">
     <Delete Files="$(DevEnvDir)PrivateAssemblies\$(TargetName).dll;$(DevEnvDir)PrivateAssemblies\$(TargetName).pdb" />
   </Target>
 </Project>
