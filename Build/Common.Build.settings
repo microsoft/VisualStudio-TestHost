@@ -39,7 +39,7 @@
     <!--
     The version number that will identify assembly compatibility.
     -->
-    <StableVersionPrefix Condition="$(StableVersionPrefix) == ''">1.0.4</StableVersionPrefix>
+    <StableVersionPrefix Condition="$(StableVersionPrefix) == ''">1.0.5</StableVersionPrefix>
     <StableVersion Condition="$(StableVersion) == ''">$(StableVersionPrefix).$(VSTargetName)</StableVersion>
     
     <!-- When true, increases build restrictions to ensure complete public releases -->
