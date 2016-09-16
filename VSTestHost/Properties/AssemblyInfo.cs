@@ -35,7 +35,7 @@ using Microsoft.VisualStudio.Shell;
 
 [assembly: ProvideCodeBase(
     AssemblyName = "Microsoft.VisualStudioTools.VSTestHost." + AssemblyVersionInfo.VSVersion + ".0",
-    CodeBase = "..\..\PublicAssemblies\Microsoft.VisualStudioTools.VSTestHost." + AssemblyVersionInfo.VSVersion + ".0.dll",
+    CodeBase = "..\\..\\PublicAssemblies\\Microsoft.VisualStudioTools.VSTestHost." + AssemblyVersionInfo.VSVersion + ".0.dll",
     Version = AssemblyVersionInfo.VSVersion + ".0.5.0"
 )]
 
