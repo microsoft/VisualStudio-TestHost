@@ -43,7 +43,7 @@
     <CreateVsixContainer>false</CreateVsixContainer>
     <CopyVsixManifestToOutput>false</CopyVsixManifestToOutput>
     <DeployVSTemplates>false</DeployVSTemplates>
-    <DeployExtension Condition="'$(VSTarget)' != '$(VisualStudioVersion)'">false</DeployExtension>
+    <DeployExtension Condition="!$(BuildingInsideVisualStudio) or '$(VSTarget)' != '$(VisualStudioVersion)'">false</DeployExtension>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
