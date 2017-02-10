@@ -40,6 +40,7 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
         private IRunContext _runContext;
         private TesteeTestAdapter _remote;
         private bool _mockVs;
+        private bool _reuseInstance;
 
         public TesterTestAdapter() { }
 
@@ -54,7 +55,8 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
         ) {
             var hiveOption = string.IsNullOrEmpty(hive) ? "" : (" /rootSuffix " + hive);
 
-            if (_ide != null &&
+            if (_reuseInstance &&
+                _ide != null &&
                 _remote != null &&
                 application == _currentApplication &&
                 executable == _currentExecutable &&
@@ -169,6 +171,7 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
             Version version;
             string launchTimeoutInSecondsString;
             int launchTimeoutInSeconds;
+            string reuseInstanceString;
 
             // VSApplication is the registry key name like 'VisualStudio'
             application = vars[VSTestProperties.VSApplication.Key] ?? VSTestProperties.VSApplication.VisualStudio;
@@ -216,6 +219,12 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
                 return;
             }
 
+            if (!vars.TryGetValue(VSTestProperties.VSReuseInstance.Key, out reuseInstanceString) ||
+                !bool.TryParse(reuseInstanceString, out _reuseInstance))
+            {
+                // the default behavior is to reuse the current instance when possible
+                _reuseInstance = true;
+            }
 
             // TODO: Detect and perform first run of VS if necessary.
             // The first time a VS hive is run, the user sees a dialog allowing
