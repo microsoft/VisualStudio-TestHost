@@ -50,5 +50,9 @@ namespace Microsoft.VisualStudioTools.VSTestHost {
         public static class VSDebugMixedMode {
             public const string Key = "VSDebugMixedMode";
         }
+
+        public static class VSReuseInstance {
+            public const string Key = "VSReuseInstance";
+        }
     }
 }
