@@ -45,6 +45,7 @@ These settings should be specified in a `.testsettings` file or with the `TestPr
 | VSHive | The hive name | "Exp" or "Default" |
 | VSLaunchTimeoutInSeconds | The number of seconds to wait for launch | Any number, or blank (30s) |
 | VSDebugMixedMode | Use native debugging for tests | "True", "False" or blank |
+| VSReuseInstance | Reuse of the same VS instance for distinct tests | "True", "False" or blank (reuse) |
 | ScreenCapture | Directory to capture screenshots into | Blank (do not capture) or a relative path |
 | ScreenCaptureInterval | Milliseconds between screenshots | Any number, or blank (1000ms) |
 
