@@ -3,7 +3,7 @@
   <Product Id="*"
            Name="VS Test Host Adapter"
            Language="1033"
-           Version="1.0.4.0"
+           Version="1.0.5.0"
            Manufacturer="Microsoft Corporation"
            UpgradeCode="4ff73677-1aed-4738-8ac7-ffc843e1cbd0">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x86" />
@@ -60,20 +60,6 @@
       </Component>
 
       <ComponentRef Id="Host_VisualStudio_14" />
-    </Feature>
-    <?endif?>
-
-    <?ifdef VSTestHostDLLSource14 ?>
-    <Feature Id="VSTestHost_15" Title="Visual Studio vNext Support">
-      <Condition Level="0">NOT VS15TARGET</Condition>
-      <Component Id="VSTestHost_15" Directory="GAC" Guid="{143379F2-0ED8-4EA2-87DA-AE604C7DC59D}">
-        <File Name="$(var.VSTestHostName15).dll" Source="$(var.VSTestHostDLLSource15)" KeyPath="yes" Assembly=".net" />
-      </Component>
-      <Component Id="Pkgdef_15" Directory="VS15Target" Guid="{A84C4FA7-7CBD-4CF7-AA28-B296D931D50C}">
-        <File Name="$(var.VSTestHostName15).pkgdef" Source="$(var.VSTestHostPkgdefSource15)" KeyPath="yes" />
-      </Component>
-
-      <ComponentRef Id="Host_VisualStudio_15" />
     </Feature>
     <?endif?>
 
