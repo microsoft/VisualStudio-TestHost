@@ -12,8 +12,6 @@
     <BuildRoot>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.root))</BuildRoot>
   </PropertyGroup>
 
-  <Import Project="$(BuildRoot)\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.props" Condition="Exists('$(BuildRoot)\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.props')" />
-
   <PropertyGroup>
     <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -39,7 +37,7 @@
     <!--
     The version number that will identify assembly compatibility.
     -->
-    <StableVersionPrefix Condition="$(StableVersionPrefix) == ''">1.0.4</StableVersionPrefix>
+    <StableVersionPrefix Condition="$(StableVersionPrefix) == ''">1.0.5</StableVersionPrefix>
     <StableVersion Condition="$(StableVersion) == ''">$(StableVersionPrefix).$(VSTargetName)</StableVersion>
     
     <!-- When true, increases build restrictions to ensure complete public releases -->
@@ -96,6 +94,10 @@
     <UnsignedOutputPath Condition="'$(UnsignedOutputPath)' == ''">$(BuildOutputRoot)raw\unsigned\</UnsignedOutputPath>
     <UnsignedOutputPath Condition="!HasTrailingSlash($(UnsignedOutputPath))">$(UnsignedOutputPath)\</UnsignedOutputPath>
 
+    <PackagesPath Condition="'$(PackagesPath)' == '' and Exists('$(BuildRoot)packages')">$(BuildRoot)packages\</PackagesPath>
+    <PackagesPath Condition="'$(PackagesPath)' == ''">$(BuildOutputRoot)packages\</PackagesPath>
+    <PackagesPath Condition="!HasTrailingSlash($(PackagesPath))">$(PackagesPath)\</PackagesPath>
+
     <IntermediateOutputRoot Condition="'$(IntermediateOutputRoot)' == ''">$(BuildOutputRoot)raw\obj\</IntermediateOutputRoot>
     <IntermediateOutputRoot Condition="!HasTrailingSlash($(IntermediateOutputRoot))">$(IntermediateOutputRoot)\</IntermediateOutputRoot>
     <IntermediateOutputPath Condition="'$(IntermediateOutputPath)' == ''">$(IntermediateOutputRoot)$(IntermediateOutputPathSuffix)</IntermediateOutputPath>
@@ -128,7 +130,7 @@
     <CopyLocalReferenceVsixItems Condition="'$(CopyLocalReferenceVsixItems)' == ''">false</CopyLocalReferenceVsixItems>
   </PropertyGroup>
 
-
+  <Import Project="$(PackagesPath)MicroBuild.Core.0.2.0\build\MicroBuild.Core.props" Condition="Exists('$(PackagesPath)MicroBuild.Core.0.2.0\build\MicroBuild.Core.props')" />
 
   <PropertyGroup>
     <ErrorReport>prompt</ErrorReport>
