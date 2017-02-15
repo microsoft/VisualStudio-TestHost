@@ -16,6 +16,7 @@ using System;
 using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
+using Microsoft.VisualStudio.Shell;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -31,6 +32,12 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyVersion(AssemblyVersionInfo.VSVersion + ".0.5.0")]
 [assembly: AssemblyFileVersion(AssemblyVersionInfo.VSVersion + ".0.5.0")]
+
+[assembly: ProvideCodeBase(
+    AssemblyName = "Microsoft.VisualStudioTools.VSTestHost." + AssemblyVersionInfo.VSVersion + ".0",
+    CodeBase = "Microsoft.VisualStudioTools.VSTestHost." + AssemblyVersionInfo.VSVersion + ".0.dll",
+    Version = AssemblyVersionInfo.VSVersion + ".0.5.0"
+)]
 
 class AssemblyVersionInfo {
 #if DEV10

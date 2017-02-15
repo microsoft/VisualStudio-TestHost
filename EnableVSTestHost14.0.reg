@@ -1,8 +1,8 @@
 Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\Software\Wow6432Node\Microsoft\VisualStudio\14.0\EnterpriseTools\QualityTools\HostAdapters\VSTestHost]
-"Type"="Microsoft.VisualStudioTools.VSTestHost.TesterTestAdapter, Microsoft.VisualStudioTools.VSTestHost.14.0, Version=14.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-"EditorType"="Microsoft.VisualStudioTools.VSTestHost.TesterTestControl, Microsoft.VisualStudioTools.VSTestHost.14.0, Version=14.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+"Type"="Microsoft.VisualStudioTools.VSTestHost.TesterTestAdapter, Microsoft.VisualStudioTools.VSTestHost.14.0, Version=14.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+"EditorType"="Microsoft.VisualStudioTools.VSTestHost.TesterTestControl, Microsoft.VisualStudioTools.VSTestHost.14.0, Version=14.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
 [HKEY_LOCAL_MACHINE\Software\Wow6432Node\Microsoft\VisualStudio\14.0\EnterpriseTools\QualityTools\HostAdapters\VSTestHost\SupportedTestTypes]
 "{13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b}"="Unit Test"
 [HKEY_LOCAL_MACHINE\Software\Wow6432Node\Microsoft\VisualStudio\14.0\EnterpriseTools\QualityTools\TestTypes\{13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b}\SupportedHostAdapters]

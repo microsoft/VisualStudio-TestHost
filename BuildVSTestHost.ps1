@@ -48,7 +48,7 @@ if ($sign -or $mocksign) {
         Import-Module -force $projectDir\Build\BuildReleaseMockHelpers.psm1
     }
     
-    $approvers = "smortaz", "dinov", "stevdo", "pminaev", "gilbertw", "huvalo", "sitani", "jinglou", "crwilcox"
+    $approvers = "smortaz", "dinov", "stevdo", "pminaev", "gilbertw", "huvalo", "crwilcox"
     $approvers = @($approvers | Where-Object {$_ -ne $env:USERNAME})
 
     $dllfiles = @(Get-ChildItem "$projectDir\BuildOutput\Release*\raw\Microsoft.VisualStudioTools.VSTestHost.*.dll" | %{ @{path=$_.FullName; name=$_.Name} })
