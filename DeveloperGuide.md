@@ -86,6 +86,7 @@ follows:
 | VSHive        | The hive name, like "Exp" or "Default" |
 | VSLaunchTimeoutInSeconds [opt] | The number of seconds to wait for launch |
 | VSDebugMixedMode | True to use mixed-mode debugging for tests |
+| VSReuseInstance [opt] | False to disable the reuse of the same VS instance for distinct tests |
 | ScreenCapture [opt] | Relative path to capture screenshots to |
 | ScreenCaptureInterval [opt] | Milliseconds between screenshots |
 
