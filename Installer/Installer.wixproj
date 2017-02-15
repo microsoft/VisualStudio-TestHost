@@ -9,7 +9,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>3.8</ProductVersion>
+    <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>19b3ef60-2d4b-4598-9f31-bcd75751b244</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>VSTestHost</OutputName>
@@ -18,6 +18,7 @@
     <VSTestHostTarget Condition="'$(VSTestHostTarget)' == ''">Build</VSTestHostTarget>
     <VSTargetVersions Condition="'$(VSTargetVersions)' == ''">14</VSTargetVersions>
     <OutputPath>$(ReleaseOutputPath)</OutputPath>
+    <OutDir>$(OutputPath)</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DefineConstants>Debug</DefineConstants>
