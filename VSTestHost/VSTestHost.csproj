@@ -141,6 +141,14 @@
     <Content Include="Resources\Package.ico" />
     <None Include="source.extension.vsixmanifest" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="InstallInVS2017.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="vs2017.testsettings.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(TargetsPath)\Common.Build.targets" />
   <Import Project="$(TargetsPath)\Common.Build.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
