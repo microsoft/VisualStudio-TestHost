@@ -33,7 +33,7 @@ gci @(
     "$vs\Common7\IDE\Extensions\TestPlatform\vstest.*.exe.config"
 ) | ?{ Test-Path $_ } | %{
     $conf = [xml](gc $_);
-	$privatePath = $conf.configuration.runtime.assemblyBinding.probing.privatePath;
+    $privatePath = $conf.configuration.runtime.assemblyBinding.probing.privatePath;
     if ($privatePath -and -not $privatePath.Contains("CommonExtensions\Microsoft\Editor")) {
         $conf.configuration.runtime.assemblyBinding.probing.privatePath += ";CommonExtensions\Platform;CommonExtensions\Microsoft\Editor";
 
