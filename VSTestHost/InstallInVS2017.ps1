@@ -28,10 +28,13 @@ copy "$source\Microsoft.VisualStudioTools.VSTestHost.15.0.pkgdef" "$vs\Common7\I
 gci @(
     "$vs\Common7\IDE\MSTest.exe.config",
     "$vs\Common7\IDE\QTAgent*.exe.config",
-    "$vs\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.*.exe.config"
+    "$vs\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.*.exe.config",
+    "$vs\Common7\IDE\Extensions\TestPlatform\QTAgent*.exe.config",
+    "$vs\Common7\IDE\Extensions\TestPlatform\vstest.*.exe.config"
 ) | ?{ Test-Path $_ } | %{
     $conf = [xml](gc $_);
-    if (-not $conf.configuration.runtime.assemblyBinding.probing.privatePath.Contains("CommonExtensions\Microsoft\Editor")) {
+    $privatePath = $conf.configuration.runtime.assemblyBinding.probing.privatePath;
+    if ($privatePath -and -not $privatePath.Contains("CommonExtensions\Microsoft\Editor")) {
         $conf.configuration.runtime.assemblyBinding.probing.privatePath += ";CommonExtensions\Platform;CommonExtensions\Microsoft\Editor";
 
         $n = $conf.configuration.runtime.assemblyBinding.AppendChild($conf.ImportNode(([xml]'<dependentAssembly>
