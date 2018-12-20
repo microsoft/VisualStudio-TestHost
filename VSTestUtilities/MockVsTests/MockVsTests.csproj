@@ -40,7 +40,6 @@
     <Reference Include="Microsoft.VisualStudio.QualityTools.Common, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.ExecutionCommon, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.VisualStudio.Shell.$(VSTarget), Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Shell.Design, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Shell.Immutable.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Shell.Immutable.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -82,6 +81,19 @@
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
+  <Choose>
+    <When Condition="$(VSTarget) &gt;= '15.0'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.Shell.15.0, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <!-- Dev 16 provides Shell.15 but with version 16 -->
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.Shell.$(VSTarget), Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
   <ItemGroup>
     <Compile Include="CachedVsInfo.cs" />
     <Compile Include="CommandTargetExtensions.cs" />
@@ -115,11 +127,8 @@
     <Compile Include="MockOleComponentManager.cs" />
     <Compile Include="MockOutputWindow.cs" />
     <Compile Include="MockOutputWindowPane.cs" />
-    <Compile Include="MockQuickInfoBroker.cs" />
     <Compile Include="MockSignatureHelpBroker.cs" />
     <Compile Include="MockSignatureHelpSession.cs" />
-    <Compile Include="MockSmartTagBroker.cs" />
-    <Compile Include="MockSmartTagSession.cs" />
     <Compile Include="MockTextMarkerProviderFactory.cs" />
     <Compile Include="MockToolWindow.cs" />
     <Compile Include="MockTreeNode.cs" />

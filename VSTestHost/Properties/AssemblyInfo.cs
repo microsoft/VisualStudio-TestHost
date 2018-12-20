@@ -50,6 +50,8 @@ class AssemblyVersionInfo {
     public const string VSVersion = "14";
 #elif DEV15
     public const string VSVersion = "15";
+#elif DEV16
+    public const string VSVersion = "16";
 #else
 #error Unrecognized VS version
 #endif

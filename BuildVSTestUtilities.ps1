@@ -21,7 +21,8 @@ Write-Output "Writing output MSIs to $outdir"
 Remove-Item $projectdir\BuildOutput\*.nupkg
 
 $vsVersions = @(
-    @{v="15.0"; year="vNext"},
+    @{v="16.0"; year="2019"},
+    @{v="15.0"; year="2017"},
     @{v="14.0"; year="2015"},
     @{v="12.0"; year="2013"},
     @{v="11.0"; year="2012"}

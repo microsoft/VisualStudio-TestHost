@@ -23,7 +23,7 @@ using System.Runtime.InteropServices;
 // Properties\AssemblyInfo.cs file and remove any lines duplicating the ones below.
 [assembly: AssemblyCompany("Microsoft")]
 [assembly: AssemblyProduct("VSTestUtilities")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2016")]
+[assembly: AssemblyCopyright("Copyright © Microsoft 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion(AssemblyVersionInfo.StableVersion)]
@@ -56,6 +56,9 @@ class AssemblyVersionInfo {
 #elif DEV15
     public const string VSMajorVersion = "15";
     const string VSVersionSuffix = "15";
+#elif DEV16
+    public const string VSMajorVersion = "16";
+    const string VSVersionSuffix = "16";
 #else
 #error Unrecognized VS Version.
 #endif
