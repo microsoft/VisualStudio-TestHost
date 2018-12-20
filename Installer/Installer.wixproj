@@ -16,7 +16,7 @@
     <OutputType>Package</OutputType>
     <DefineSolutionProperties>false</DefineSolutionProperties>
     <VSTestHostTarget Condition="'$(VSTestHostTarget)' == ''">Build</VSTestHostTarget>
-    <VSTargetVersions Condition="'$(VSTargetVersions)' == ''">16</VSTargetVersions>
+    <VSTargetVersions Condition="'$(VSTargetVersions)' == ''">14</VSTargetVersions>
     <OutputPath>$(ReleaseOutputPath)</OutputPath>
     <OutDir>$(OutputPath)</OutDir>
   </PropertyGroup>
