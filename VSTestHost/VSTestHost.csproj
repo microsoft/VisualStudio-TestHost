@@ -143,7 +143,7 @@
     <Content Include="Resources\Package.ico" />
     <None Include="source.extension.vsixmanifest" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition="$(VSTarget) &gt;= '15.0'">
     <Content Include="InstallInVS$(VSTargetYear).ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
