@@ -16,7 +16,7 @@
     <OutputType>Package</OutputType>
     <DefineSolutionProperties>false</DefineSolutionProperties>
     <VSTestHostTarget Condition="'$(VSTestHostTarget)' == ''">Build</VSTestHostTarget>
-    <VSTargetVersions Condition="'$(VSTargetVersions)' == ''">14</VSTargetVersions>
+    <VSTargetVersions Condition="'$(VSTargetVersions)' == ''">16</VSTargetVersions>
     <OutputPath>$(ReleaseOutputPath)</OutputPath>
     <OutDir>$(OutputPath)</OutDir>
   </PropertyGroup>
@@ -26,7 +26,8 @@
   <ItemGroup>
     <Compile Include="Product.wxs" />
   </ItemGroup>
-  <Import Project="$(WixTargetsPath)" />
+  <!--<Import Project="$(WixTargetsPath)" /> workaround a bug with the new 'Current' value introduced for msbuild version with Dev16 -->
+  <Import Project="$(PackagesPath)WiX.3.10.3\tools\wix2010.targets" Condition="Exists('$(PackagesPath)WiX.3.10.3\tools\wix2010.targets')" />
 
   <Target Name="_GetVSTestHostItems">
     <ItemGroup>

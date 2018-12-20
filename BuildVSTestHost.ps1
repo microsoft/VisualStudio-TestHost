@@ -73,13 +73,13 @@ if ($sign -or $mocksign) {
     }
     
     Write-Output "Submitting MSI signing job"
-    $msifiles = @(@{path="$projectDir\Installer\bin\Release\VSTestHost.msi"; name="VSTestHost.msi"})
+    $msifiles = @(@{path="$projectDir\BuildOutput\Release*\release\VSTestHost.msi"; name="VSTestHost.msi"})
     $msijob = begin_sign_files $msifiles $outdir $approvers "VS Test Host Installer" "https://github.com/Microsoft/VisualStudio-TestHost" `
                                "VS Test Host" "Visual Studio; test" "msi"
     
     end_sign_files $msijob
 } else {
-    Copy-Item "$projectDir\Installer\bin\Release\VSTestHost.msi" $outdir
+    Copy-Item "$projectDir\BuildOutput\Release*\release\VSTestHost.msi" $outdir
 }
 
 Write-Output ""

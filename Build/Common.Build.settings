@@ -15,17 +15,23 @@
   <PropertyGroup>
     <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSTarget Condition="$(VSTarget)=='' and '$(VisualStudioVersion)'=='16.0'">16.0</VSTarget>
     <VSTarget Condition="$(VSTarget)=='' and '$(VisualStudioVersion)'=='15.0'">15.0</VSTarget>
     <VSTarget Condition="$(VSTarget)=='' and '$(VisualStudioVersion)'=='14.0'">14.0</VSTarget>
     <VSTarget Condition="$(VSTarget)=='' and '$(VisualStudioVersion)'=='12.0'">12.0</VSTarget>
     <VSTarget Condition="$(VSTarget)=='' and '$(VisualStudioVersion)'=='11.0'">11.0</VSTarget>
     <VSTarget Condition="$(VSTarget)==''">10.0</VSTarget>
     
+    <VSTargetName Condition="'$(VSTarget)' == '16.0'">16</VSTargetName>
     <VSTargetName Condition="'$(VSTarget)' == '15.0'">15</VSTargetName>
     <VSTargetName Condition="'$(VSTarget)' == '14.0'">2015</VSTargetName>
     <VSTargetName Condition="'$(VSTarget)' == '12.0'">2013</VSTargetName>
     <VSTargetName Condition="'$(VSTarget)' == '11.0'">2012</VSTargetName>
     <VSTargetName Condition="'$(VSTarget)' == '10.0'">2010</VSTargetName>
+	
+    <VSTargetYear Condition="'$(VSTarget)' == '16.0'">2019</VSTargetYear>
+    <VSTargetYear Condition="'$(VSTarget)' == '15.0'">2017</VSTargetYear>
+    <VSTargetYear Condition="'$(VSTarget)' &lt;= '14.0'">$(VSTargetName)</VSTargetYear>
     
     <BuildNumber Condition="'$(BuildNumber)' == ''">0.0</BuildNumber>
     <!--
@@ -56,6 +62,7 @@
 
     <BuildingInsideVisualStudio Condition="'$(BuildingInsideVisualStudio)' == ''">false</BuildingInsideVisualStudio>
     
+    <TargetFrameworkVersion Condition="'$(VSTarget)' == '16.0'">v4.7.2</TargetFrameworkVersion>
     <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v4.6</TargetFrameworkVersion>
     
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
