@@ -48,6 +48,22 @@ gci @(
     }
 }
 
+if (-not (Test-Path "$vs\Common7\IDE\Extensions\TestPlatform\PublicAssemblies")) {
+    "Workaround for global assembly resolution issues"
+    "Creating symbolic link to PublicAssemblies"
+    cmd /c mklink /D "$vs\Common7\IDE\Extensions\TestPlatform\PublicAssemblies" "$vs\Common7\IDE\PublicAssemblies" | Out-Null
+}
+if (-not (Test-Path "$vs\Common7\IDE\Extensions\TestPlatform\PrivateAssemblies")) {
+    "Creating symbolic link to PrivateAssemblies"
+    cmd /c mklink /D "$vs\Common7\IDE\Extensions\TestPlatform\PrivateAssemblies" "$vs\Common7\IDE\PrivateAssemblies" | Out-Null
+}
+if (-not (Test-Path "$vs\Common7\IDE\Extensions\TestPlatform\CommonExtensions")) {
+    "Creating symbolic link to VSTestHost"
+    mkdir "$vs\Common7\IDE\Extensions\TestPlatform\CommonExtensions" | Out-Null
+    mkdir "$vs\Common7\IDE\Extensions\TestPlatform\CommonExtensions\Platform" | Out-Null
+    cmd /c mklink "$vs\Common7\IDE\Extensions\TestPlatform\CommonExtensions\Platform\Microsoft.VisualStudioTools.VSTestHost.16.0.dll" "$vs\Common7\IDE\CommonExtensions\Platform\Microsoft.VisualStudioTools.VSTestHost.16.0.dll" | Out-Null
+}
+
 "Executing devenv /setup"
 Start-Process -Wait -NoNewWindow "$vs\Common7\IDE\devenv.exe" "/setup"
 
